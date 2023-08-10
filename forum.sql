@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 11, 2023 at 06:22 PM
--- Server version: 10.4.27-MariaDB
--- PHP Version: 8.1.12
+-- Generation Time: Aug 10, 2023 at 09:03 PM
+-- Server version: 10.4.28-MariaDB
+-- PHP Version: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -138,7 +138,9 @@ INSERT INTO `comments` (`id`, `user_id`, `question_id`, `description`, `upvotes`
 (46, 8, 24, 'probably last change', 0, 0, 0, 1, '2023-02-04 13:03:31', '2023-02-04 13:03:31'),
 (47, 8, 24, 'prolly it\'s last', 0, 0, 0, 1, '2023-02-04 13:04:16', '2023-02-04 13:04:16'),
 (48, 8, 24, 'It\'s again', 0, 0, 0, 1, '2023-02-04 13:27:20', '2023-02-04 13:27:20'),
-(49, 10, 112, 'It is my first ever comment', 0, 0, 0, 1, '2023-02-09 10:13:36', '2023-02-09 10:13:36');
+(49, 10, 112, 'It is my first ever comment', 0, 0, 0, 1, '2023-02-09 10:13:36', '2023-02-09 10:13:36'),
+(50, 11, 120, 'I have found out what is the shopify :D', 0, 0, 0, 1, '2023-08-10 16:48:21', '2023-08-10 16:48:21'),
+(51, 12, 120, 'Good man....', 0, 0, 0, 1, '2023-08-10 17:02:00', '2023-08-10 17:02:00');
 
 -- --------------------------------------------------------
 
@@ -219,7 +221,8 @@ INSERT INTO `notifications` (`id`, `user_id`, `isRead`, `message`, `created_at`,
 (7, 9, 1, 'goofy just commented on <br /><span class=\'font-bold\'>What is the linear algebra?</span>', '2022-12-26 19:21:34', NULL),
 (8, 9, 1, 'goofy just commented on <span class=\'font-bold\'>What is the linear algebra?</span>', '2022-12-26 19:21:34', NULL),
 (9, 9, 1, 'goofy just commented on <strong>What is the linear algebra?</strong>', '2022-12-26 19:21:34', NULL),
-(10, 9, 1, 'goofy just commented on <strong>What is the linear algebra?</strong>', '2022-12-26 19:21:34', NULL);
+(10, 9, 1, 'goofy just commented on <strong>What is the linear algebra?</strong>', '2022-12-26 19:21:34', NULL),
+(11, 11, 1, 'danish just commented on <strong>Is wordpress the future?</strong>', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -264,6 +267,7 @@ CREATE TABLE `profile` (
   `profile_pic` varchar(255) NOT NULL,
   `description` varchar(255) NOT NULL,
   `is_private` tinyint(1) NOT NULL,
+  `reputation` int(11) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -272,11 +276,12 @@ CREATE TABLE `profile` (
 -- Dumping data for table `profile`
 --
 
-INSERT INTO `profile` (`id`, `user_id`, `profile_pic`, `description`, `is_private`, `created_at`, `updated_at`) VALUES
-(1, 8, 'hashim.jpg', 'I am enthusiastic web developer with 2 years of experience and learning something new constantly', 0, NULL, NULL),
-(2, 9, 'hashim.jpg', 'I am none', 0, NULL, NULL),
-(3, 10, 'user-307993__340.webp', 'I have just changed something...s.s', 0, NULL, '2023-02-10 02:05:22'),
-(4, 1, '', 'I am anonymous', 0, NULL, NULL);
+INSERT INTO `profile` (`id`, `user_id`, `profile_pic`, `description`, `is_private`, `reputation`, `created_at`, `updated_at`) VALUES
+(1, 8, 'hashim.jpg', 'I am enthusiastic web developer with 2 years of experience and learning something new constantly', 0, 0, NULL, NULL),
+(2, 9, 'hashim.jpg', 'I am none', 0, 0, NULL, NULL),
+(3, 10, 'user-307993__340.webp', 'I have just changed something...s.s', 0, 0, NULL, '2023-02-10 02:05:22'),
+(4, 1, '', 'I am anonymous', 0, 5, NULL, '2023-08-10 22:16:32'),
+(5, 11, 'fotis-fotopoulos-6sAl6aQ4OWI-unsplash.jpg', '', 0, 20, NULL, '2023-08-10 21:53:44');
 
 -- --------------------------------------------------------
 
@@ -295,6 +300,7 @@ CREATE TABLE `questions` (
   `slug` varchar(255) NOT NULL,
   `hearts` int(11) NOT NULL,
   `status` tinyint(1) NOT NULL,
+  `votes` int(11) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -303,126 +309,128 @@ CREATE TABLE `questions` (
 -- Dumping data for table `questions`
 --
 
-INSERT INTO `questions` (`id`, `title`, `category_id`, `user_id`, `description`, `upvotes`, `downvotes`, `slug`, `hearts`, `status`, `created_at`, `updated_at`) VALUES
-(1, 'How to achieve XYZ in Laravel', 1, 1, '<p>It is description</p><p>It is another description</p>', 1, 1, '1ff', 1, 1, '2003-03-10 10:00:00', NULL),
-(2, 'The second question', 1, 1, 'It is the second questiobn', 1, 1, 'eustion', 1, 1, '2003-03-10 10:00:00', NULL),
-(3, 'How gardening is being done?', 2, 1, 'How?', 1, 1, 'gard', 1, 1, '2003-03-10 10:00:00', NULL),
-(4, 'Is it unique question', 1, 1, 'bla bla', 1, 1, 'bla', 1, 1, '2003-03-10 10:00:00', NULL),
-(5, 'This is the car', 1, 8, 'THis is the carTHis is the carTHis is the carTHis is the car', 0, 0, 'this-is-the-car', 0, 1, '2022-12-26 19:05:37', '2022-12-26 19:05:37'),
-(6, 'This is the car', 1, 8, 'THis is the carTHis is the carTHis is the carTHis is the car', 0, 0, 'this-is-the-car', 0, 1, '2022-12-26 19:06:09', '2022-12-26 19:06:09'),
-(7, 'This is the car', 1, 8, 'THis is the carTHis is the carTHis is the carTHis is the car', 0, 0, 'this-is-the-car', 0, 1, '2022-12-26 19:06:53', '2022-12-26 19:06:53'),
-(8, 'This is the car', 1, 8, 'THis is the carTHis is the carTHis is the carTHis is the car', 0, 0, 'this-is-the-car', 0, 1, '2022-12-26 19:08:22', '2022-12-26 19:08:22'),
-(9, 'This is the car', 1, 8, 'THis is the carTHis is the carTHis is the carTHis is the car', 0, 0, 'this-is-the-car', 0, 1, '2022-12-26 19:08:35', '2022-12-26 19:08:35'),
-(10, 'It has mutliple tags', 2, 8, 'This question literally has multiple tags :- D', 0, 0, 'it-has-mutliple-tags', 0, 1, '2022-12-26 19:10:50', '2022-12-26 19:10:50'),
-(11, 'It is something else', 1, 8, 'sdgdsfdfsd I t is somedfghsx fgd;fjsdfjdkcnvgjdfhfjdhdvgdfv', 0, 0, 'it-is-something-else', 0, 1, '2022-12-26 19:11:57', '2022-12-26 19:11:57'),
-(12, 'It is something else', 1, 8, 'sdgdsfdfsd I t is somedfghsx fgd;fjsdfjdkcnvgjdfhfjdhdvgdfv', 0, 0, 'it-is-something-else', 0, 1, '2022-12-26 19:12:24', '2022-12-26 19:12:24'),
-(13, 'For sure it has multiple tags', 2, 8, 'sdfdsfdfs edjfhsdjfhj sdjfhdjhfjkdhfjkh  sfgdhgfhdgfhb sdfhgdhfgdhfgsdh edfhdghfgdhfd', 0, 0, 'for-sure-it-has-multiple-tags', 0, 1, '2022-12-26 19:13:03', '2022-12-26 19:13:03'),
-(14, 'I am unique', 2, 8, 'I am unique guy.... Don\'t underestimate me', 0, 0, 'i-am-unique', 0, 1, '2022-12-26 19:14:13', '2022-12-26 19:14:13'),
-(15, 'I am unique', 2, 8, 'I am unique guy.... Don\'t underestimate me', 0, 0, 'i-am-unique', 0, 1, '2022-12-26 19:14:30', '2022-12-26 19:14:30'),
-(16, 'I am not unique', 1, 8, 'I am literally not unique.... lol', 0, 0, 'i-am-not-unique', 0, 1, '2022-12-26 19:15:36', '2022-12-26 19:15:36'),
-(17, 'how to make slime without activater', 1, 8, 'idk how to make a slime plz can anyone teach mne how to make i really idk', 0, 0, 'how-to-make-slime-without-activater', 0, 1, '2022-12-26 19:20:55', '2022-12-26 19:20:55'),
-(18, 'Defined the mutator', 1, 8, 'I have defined the mutator in this question. Now I know How does this work :- D', 0, 0, 'defined-the-mutator', 0, 1, '2022-12-27 14:54:44', '2022-12-27 14:54:44'),
-(19, 'There are some mutators', 2, 8, 'There are some mutators around us....', 0, 0, 'there-are-some-mutators', 0, 1, '2022-12-27 14:57:51', '2022-12-27 14:57:51'),
-(20, 'The slug has been mutated', 1, 8, 'The slug of this question has been mutated', 0, 0, 'the-slug-has-been-mutated', 0, 1, '2022-12-27 15:02:57', '2022-12-27 15:02:57'),
-(21, 'is loop needed', 2, 8, 'Is loop really needed???? huh?????', 0, 0, 'is-loop-needed', 0, 1, '2022-12-27 15:05:32', '2022-12-27 15:05:32'),
-(22, '1234567891012', 1, 9, 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxys', 0, 0, '1234567891012', 0, 1, '2023-02-01 09:36:57', '2023-02-01 09:36:57'),
-(23, 'Formula of Mathematics???????', 2, 9, 'I am quiet new in Maths.... I forgot the formula of (a+b)^2 I\'d be happy if someone tells me the answer.. Thanks', 0, 0, 'formula-of-mathematics', 0, 1, '2023-02-01 09:39:35', '2023-02-01 09:39:35'),
-(24, 'What is the linear algebra?', 1, 9, 'What is the purpose of linear algebra in computer science?\r\nWhat are the works of Matrix? \r\n\r\nIs there anything related? \r\n\r\nThank you :)', 0, 0, 'what-is-the-linear-algebra', 0, 1, '2023-02-01 13:55:08', '2023-02-01 13:55:08'),
-(25, 'dsdsdsfdfdfdf', 1, 8, 'sdsdsadsdsfsdsdsdfsfdssdsdsfsddw', 0, 0, 'dsdsdsfdfdfdf', 0, 1, '2023-02-02 06:29:57', '2023-02-02 06:29:57'),
-(26, 'dsdsdsfdfdfdf', 1, 8, 'sdsdsadsdsfsdsdsdfsfdssdsdsfsddw', 0, 0, 'dsdsdsfdfdfdf', 0, 1, '2023-02-02 06:55:24', '2023-02-02 06:55:24'),
-(27, 'dsdsdsfdfdfdf', 1, 8, 'sdsdsadsdsfsdsdsdfsfdssdsdsfsddw', 0, 0, 'dsdsdsfdfdfdf', 0, 1, '2023-02-02 06:56:14', '2023-02-02 06:56:14'),
-(28, 'sdsdsdsdsdsdsads', 1, 8, 'sdsdsadsadsadsadsadsadsadfwdwsddfwsdw', 0, 0, 'sdsdsdsdsdsdsads', 0, 1, '2023-02-02 06:56:54', '2023-02-02 06:56:54'),
-(29, 'sdfsdsdsdsadsads', 2, 8, 'sdsadsadsadsadsdsdsdsdsdsdsadsdsdsad', 0, 0, 'sdfsdsdsdsadsads', 0, 1, '2023-02-02 06:57:16', '2023-02-02 06:57:16'),
-(30, 'dfsfsdsdsdsdsad', 2, 8, 'sdsdsdsdsdsdsdsdsadsdsddsdsdsadsads', 0, 0, 'dfsfsdsdsdsdsad', 0, 1, '2023-02-02 07:03:58', '2023-02-02 07:03:58'),
-(31, 'In this question I will get my second badge', 2, 8, 'In this jsdfhdjhfdjhfjksdhfjdhfjdsfjsdjfjhfjk', 0, 0, 'in-this-question-i-will-get-my-second-badge', 0, 1, '2023-02-02 07:05:04', '2023-02-02 07:05:04'),
-(32, 'fsdfdsfdsfdfsdfd', 1, 8, 'dfdfdsfdsfdfdsfsdfsdfsdfdsfsdfsdfsdf', 0, 0, 'fsdfdsfdsfdfsdfd', 0, 1, '2023-02-02 07:05:17', '2023-02-02 07:05:17'),
-(33, 'jhdfjdhfjdhfjkdjfkhd', 2, 8, 'sdhfjdhfjdhfjkdhfjkhdsjkfhsdjkfhdjfdks', 0, 0, 'jhdfjdhfjdhfjkdjfkhd', 0, 1, '2023-02-02 07:05:50', '2023-02-02 07:05:50'),
-(34, 'jhdfjdhfjdhfjkdjfkhd', 2, 8, 'sdhfjdhfjdhfjkdhfjkhdsjkfhsdjkfhdjfdks', 0, 0, 'jhdfjdhfjdhfjkdjfkhd', 0, 1, '2023-02-02 07:05:58', '2023-02-02 07:05:58'),
-(35, 'sfsdfdsfdfdfdf', 1, 8, 'dfdsfsdfdfdsfdfsdfdsfsdfsdfdsfsdfsdf', 0, 0, 'sfsdfdsfdfdfdf', 0, 1, '2023-02-02 07:06:18', '2023-02-02 07:06:18'),
-(36, 'sfsdfdsfdfdfdf', 1, 8, 'dfdsfsdfdfdsfdfsdfdsfsdfsdfdsfsdfsdf', 0, 0, 'sfsdfdsfdfdfdf', 0, 1, '2023-02-02 07:06:23', '2023-02-02 07:06:23'),
-(37, '40fdfdfsdfsdfdsf', 2, 8, 'dfsdfsdfsdfsdfsdfdfsdfdsfdsfdsfsdfdsf', 0, 0, '40fdfdfsdfsdfdsf', 0, 1, '2023-02-02 07:07:35', '2023-02-02 07:07:35'),
-(38, '1238768765754', 1, 8, 'That is quiet awkward to do that', 1, 1, 'monkey', 1, 1, NULL, NULL),
-(39, '1238768765754', 1, 8, 'That is quiet awkward to do that', 1, 1, 'monkey', 1, 1, NULL, NULL),
-(40, '1238768765754', 1, 8, 'That is quiet awkward to do that', 1, 1, 'monkey', 1, 1, NULL, NULL),
-(41, '1238768765754', 1, 8, 'That is quiet awkward to do that', 1, 1, 'monkey', 1, 1, NULL, NULL),
-(42, '1238768765754', 1, 8, 'That is quiet awkward to do that', 1, 1, 'monkey', 1, 1, NULL, NULL),
-(43, '1238768765754', 1, 8, 'That is quiet awkward to do that', 1, 1, 'monkey', 1, 1, NULL, NULL),
-(44, '1238768765754', 1, 8, 'That is quiet awkward to do that', 1, 1, 'monkey', 1, 1, NULL, NULL),
-(45, '1238768765754', 1, 8, 'That is quiet awkward to do that', 1, 1, 'monkey', 1, 1, NULL, NULL),
-(46, '1238768765754', 1, 8, 'That is quiet awkward to do that', 1, 1, 'monkey', 1, 1, NULL, NULL),
-(47, '1238768765754', 1, 8, 'That is quiet awkward to do that', 1, 1, 'monkey', 1, 1, NULL, NULL),
-(48, '1238768765754', 1, 8, 'That is quiet awkward to do that', 1, 1, 'monkey', 1, 1, NULL, NULL),
-(49, '1238768765754', 1, 8, 'That is quiet awkward to do that', 1, 1, 'monkey', 1, 1, NULL, NULL),
-(50, '1238768765754', 1, 8, 'That is quiet awkward to do that', 1, 1, 'monkey', 1, 1, NULL, NULL),
-(51, '1238768765754', 1, 8, 'That is quiet awkward to do that', 1, 1, 'monkey', 1, 1, NULL, NULL),
-(52, '1238768765754', 1, 8, 'That is quiet awkward to do that', 1, 1, 'monkey', 1, 1, NULL, NULL),
-(53, '1238768765754', 1, 8, 'That is quiet awkward to do that', 1, 1, 'monkey', 1, 1, NULL, NULL),
-(54, '1238768765754', 1, 8, 'That is quiet awkward to do that', 1, 1, 'monkey', 1, 1, NULL, NULL),
-(55, '1238768765754', 1, 8, 'That is quiet awkward to do that', 1, 1, 'monkey', 1, 1, NULL, NULL),
-(56, 'sdsdsadsadsadsad', 1, 8, 'sadsadsadsadsadsadsadsadsadsadsadsadsa', 0, 0, 'sdsdsadsadsadsad', 0, 1, '2023-02-02 07:13:44', '2023-02-02 07:13:44'),
-(57, 'Guru Badge', 1, 8, 'I got my badge of guru/////////', 0, 0, 'guru-badge', 0, 1, '2023-02-02 07:14:53', '2023-02-02 07:14:53'),
-(58, 'sdsdsdsdsdsdsad', 1, 8, 'sdsdsdsdsdsadsdsdsdsdsdsdsdsdsds', 0, 0, 'sdsdsdsdsdsdsad', 0, 1, '2023-02-02 07:15:14', '2023-02-02 07:15:14'),
-(59, 'sdsdsdsdsdsdsad', 1, 8, 'sdsdsdsdsdsadsdsdsdsdsdsdsdsdsds', 0, 0, 'sdsdsdsdsdsdsad', 0, 1, '2023-02-02 07:15:19', '2023-02-02 07:15:19'),
-(60, '1238768765754', 1, 8, 'That is quiet awkward to do that', 1, 1, 'monkey', 1, 1, NULL, NULL),
-(61, '1238768765754', 1, 8, 'That is quiet awkward to do that', 1, 1, 'monkey', 1, 1, NULL, NULL),
-(62, '1238768765754', 1, 8, 'That is quiet awkward to do that', 1, 1, 'monkey', 1, 1, NULL, NULL),
-(63, '1238768765754', 1, 8, 'That is quiet awkward to do that', 1, 1, 'monkey', 1, 1, NULL, NULL),
-(64, '1238768765754', 1, 8, 'That is quiet awkward to do that', 1, 1, 'monkey', 1, 1, NULL, NULL),
-(65, '1238768765754', 1, 8, 'That is quiet awkward to do that', 1, 1, 'monkey', 1, 1, NULL, NULL),
-(66, '1238768765754', 1, 8, 'That is quiet awkward to do that', 1, 1, 'monkey', 1, 1, NULL, NULL),
-(67, '1238768765754', 1, 8, 'That is quiet awkward to do that', 1, 1, 'monkey', 1, 1, NULL, NULL),
-(68, '1238768765754', 1, 8, 'That is quiet awkward to do that', 1, 1, 'monkey', 1, 1, NULL, NULL),
-(69, '1238768765754', 1, 8, 'That is quiet awkward to do that', 1, 1, 'monkey', 1, 1, NULL, NULL),
-(70, '1238768765754', 1, 8, 'That is quiet awkward to do that', 1, 1, 'monkey', 1, 1, NULL, NULL),
-(71, '1238768765754', 1, 8, 'That is quiet awkward to do that', 1, 1, 'monkey', 1, 1, NULL, NULL),
-(72, '1238768765754', 1, 8, 'That is quiet awkward to do that', 1, 1, 'monkey', 1, 1, NULL, NULL),
-(73, '1238768765754', 1, 8, 'That is quiet awkward to do that', 1, 1, 'monkey', 1, 1, NULL, NULL),
-(74, '1238768765754', 1, 8, 'That is quiet awkward to do that', 1, 1, 'monkey', 1, 1, NULL, NULL),
-(75, '1238768765754', 1, 8, 'That is quiet awkward to do that', 1, 1, 'monkey', 1, 1, NULL, NULL),
-(76, '1238768765754', 1, 8, 'That is quiet awkward to do that', 1, 1, 'monkey', 1, 1, NULL, NULL),
-(77, '1238768765754', 1, 8, 'That is quiet awkward to do that', 1, 1, 'monkey', 1, 1, NULL, NULL),
-(78, '1238768765754', 1, 8, 'That is quiet awkward to do that', 1, 1, 'monkey', 1, 1, NULL, NULL),
-(79, '1238768765754', 1, 8, 'That is quiet awkward to do that', 1, 1, 'monkey', 1, 1, NULL, NULL),
-(80, '1238768765754', 1, 8, 'That is quiet awkward to do that', 1, 1, 'monkey', 1, 1, NULL, NULL),
-(81, '1238768765754', 1, 8, 'That is quiet awkward to do that', 1, 1, 'monkey', 1, 1, NULL, NULL),
-(82, '1238768765754', 1, 8, 'That is quiet awkward to do that', 1, 1, 'monkey', 1, 1, NULL, NULL),
-(83, '1238768765754', 1, 8, 'That is quiet awkward to do that', 1, 1, 'monkey', 1, 1, NULL, NULL),
-(84, '1238768765754', 1, 8, 'That is quiet awkward to do that', 1, 1, 'monkey', 1, 1, NULL, NULL),
-(85, '1238768765754', 1, 8, 'That is quiet awkward to do that', 1, 1, 'monkey', 1, 1, NULL, NULL),
-(86, '1238768765754', 1, 8, 'That is quiet awkward to do that', 1, 1, 'monkey', 1, 1, NULL, NULL),
-(87, '1238768765754', 1, 8, 'That is quiet awkward to do that', 1, 1, 'monkey', 1, 1, NULL, NULL),
-(88, '1238768765754', 1, 8, 'That is quiet awkward to do that', 1, 1, 'monkey', 1, 1, NULL, NULL),
-(89, '1238768765754', 1, 8, 'That is quiet awkward to do that', 1, 1, 'monkey', 1, 1, NULL, NULL),
-(90, '1238768765754', 1, 8, 'That is quiet awkward to do that', 1, 1, 'monkey', 1, 1, NULL, NULL),
-(91, '1238768765754', 1, 8, 'That is quiet awkward to do that', 1, 1, 'monkey', 1, 1, NULL, NULL),
-(92, '1238768765754', 1, 8, 'That is quiet awkward to do that', 1, 1, 'monkey', 1, 1, NULL, NULL),
-(93, '1238768765754', 1, 8, 'That is quiet awkward to do that', 1, 1, 'monkey', 1, 1, NULL, NULL),
-(94, '1238768765754', 1, 8, 'That is quiet awkward to do that', 1, 1, 'monkey', 1, 1, NULL, NULL),
-(95, '1238768765754', 1, 8, 'That is quiet awkward to do that', 1, 1, 'monkey', 1, 1, NULL, NULL),
-(96, '1238768765754', 1, 8, 'That is quiet awkward to do that', 1, 1, 'monkey', 1, 1, NULL, NULL),
-(97, '1238768765754', 1, 8, 'That is quiet awkward to do that', 1, 1, 'monkey', 1, 1, NULL, NULL),
-(98, '1238768765754', 1, 8, 'That is quiet awkward to do that', 1, 1, 'monkey', 1, 1, NULL, NULL),
-(99, '1238768765754', 1, 8, 'That is quiet awkward to do that', 1, 1, 'monkey', 1, 1, NULL, NULL),
-(100, '1238768765754', 1, 8, 'That is quiet awkward to do that', 1, 1, 'monkey', 1, 1, NULL, NULL),
-(101, '1238768765754', 1, 8, 'That is quiet awkward to do that', 1, 1, 'monkey', 1, 1, NULL, NULL),
-(102, '1238768765754', 1, 8, 'That is quiet awkward to do that', 1, 1, 'monkey', 1, 1, NULL, NULL),
-(103, '1238768765754', 1, 8, 'That is quiet awkward to do that', 1, 1, 'monkey', 1, 1, NULL, NULL),
-(104, '1238768765754', 1, 8, 'That is quiet awkward to do that', 1, 1, 'monkey', 1, 1, NULL, NULL),
-(105, '1238768765754', 1, 8, 'That is quiet awkward to do that', 1, 1, 'monkey', 1, 1, NULL, NULL),
-(106, '1238768765754', 1, 8, 'That is quiet awkward to do that', 1, 1, 'monkey', 1, 1, NULL, NULL),
-(107, '1238768765754', 1, 8, 'That is quiet awkward to do that', 1, 1, 'monkey', 1, 1, NULL, NULL),
-(108, 'fsfsdfsdfsfdf', 2, 8, 'sdfsdfsdfsdfdfdfdfdfdfdfdfdfdfdfdfd', 0, 0, 'fsfsdfsdfsfdf', 0, 1, '2023-02-02 07:16:25', '2023-02-02 07:16:25'),
-(109, 'I need the badge', 2, 9, 'I jsut want the badge to do flexing with my friends', 0, 0, 'i-need-the-badge', 0, 1, '2023-02-02 14:17:14', '2023-02-02 14:17:14'),
-(110, 'Sfhdjfhdjkfhdjhfdjkfh', 1, 9, 'fdhfjdhfjkdhfjkdshfjksdfsdhjkhd', 0, 0, 'sfhdjfhdjkfhdjhfdjkfh', 0, 1, '2023-02-02 14:35:38', '2023-02-02 14:35:38'),
-(111, 'sdfsdfdfdfdfdf', 1, 9, 'dfsdfsdfdsfdsfdfdfdfdfdfdsfdsfd', 0, 0, 'sdfsdfdfdfdfdf', 0, 1, '2023-02-02 14:36:00', '2023-02-02 14:36:00'),
-(112, 'Clients in fiverr', 1, 10, 'I have been using fiverr from so long. Still, I am not be able to get clients in fiverr. What is the reason?', 0, 0, 'clients-in-fiverr', 0, 1, '2023-02-06 14:34:19', '2023-02-06 14:34:19'),
-(113, 'Second questions', 2, 10, 'It is definitely the second questions', 0, 0, 'second-questions', 0, 1, '2023-02-06 14:35:46', '2023-02-06 14:35:46'),
-(114, 'again questions', 1, 10, 'It is the second questionsdffa', 0, 0, 'again-questions', 0, 1, '2023-02-06 14:38:03', '2023-02-06 14:38:03'),
-(115, 'sfsdfdfdfdfdf', 2, 10, 'dfdfdfdfdsfdfdfdfdfsdfdsfdfdfsdfdsf', 0, 0, 'sfsdfdfdfdfdf', 0, 1, '2023-02-06 14:38:18', '2023-02-06 14:38:18'),
-(116, 'the another thrwed', 1, 10, 'sfsdfsdsdsdsadsadsdsadsdsdsdsdsd', 0, 0, 'the-another-thrwed', 0, 1, '2023-02-06 14:38:40', '2023-02-06 14:38:40'),
-(117, 'sample questuo', 1, 10, 'It is a sample question.........', 0, 0, 'sample-questuo', 0, 1, '2023-02-10 02:07:31', '2023-02-10 02:07:31'),
-(118, 'another sample questions', 2, 10, 'it is another sample question..', 0, 0, 'another-sample-questions', 0, 1, '2023-02-10 02:08:32', '2023-02-10 02:08:32'),
-(119, 'Another questions', 2, 10, 'It is anorghwer questiobn to dodf', 0, 0, 'another-questions', 0, 1, '2023-02-10 04:55:45', '2023-02-10 04:55:45');
+INSERT INTO `questions` (`id`, `title`, `category_id`, `user_id`, `description`, `upvotes`, `downvotes`, `slug`, `hearts`, `status`, `votes`, `created_at`, `updated_at`) VALUES
+(1, 'How to achieve XYZ in Laravel', 1, 1, '<p>It is description</p><p>It is another description</p>', 1, 1, '1ff', 1, 1, -1, '2003-03-10 10:00:00', '2023-08-10 20:06:21'),
+(2, 'The second question', 1, 1, 'It is the second questiobn', 1, 1, 'eustion', 1, 1, 1, '2003-03-10 10:00:00', '2023-08-10 22:16:32'),
+(3, 'How gardening is being done?', 2, 1, 'How?', 1, 1, 'gard', 1, 1, 0, '2003-03-10 10:00:00', NULL),
+(4, 'Is it unique question', 1, 1, 'bla bla', 1, 1, 'bla', 1, 1, 0, '2003-03-10 10:00:00', NULL),
+(5, 'This is the car', 1, 8, 'THis is the carTHis is the carTHis is the carTHis is the car', 0, 0, 'this-is-the-car', 0, 1, 0, '2022-12-26 19:05:37', '2022-12-26 19:05:37'),
+(6, 'This is the car', 1, 8, 'THis is the carTHis is the carTHis is the carTHis is the car', 0, 0, 'this-is-the-car', 0, 1, 0, '2022-12-26 19:06:09', '2022-12-26 19:06:09'),
+(7, 'This is the car', 1, 8, 'THis is the carTHis is the carTHis is the carTHis is the car', 0, 0, 'this-is-the-car', 0, 1, 0, '2022-12-26 19:06:53', '2022-12-26 19:06:53'),
+(8, 'This is the car', 1, 8, 'THis is the carTHis is the carTHis is the carTHis is the car', 0, 0, 'this-is-the-car', 0, 1, 0, '2022-12-26 19:08:22', '2022-12-26 19:08:22'),
+(9, 'This is the car', 1, 8, 'THis is the carTHis is the carTHis is the carTHis is the car', 0, 0, 'this-is-the-car', 0, 1, 0, '2022-12-26 19:08:35', '2022-12-26 19:08:35'),
+(10, 'It has mutliple tags', 2, 8, 'This question literally has multiple tags :- D', 0, 0, 'it-has-mutliple-tags', 0, 1, 0, '2022-12-26 19:10:50', '2022-12-26 19:10:50'),
+(11, 'It is something else', 1, 8, 'sdgdsfdfsd I t is somedfghsx fgd;fjsdfjdkcnvgjdfhfjdhdvgdfv', 0, 0, 'it-is-something-else', 0, 1, 0, '2022-12-26 19:11:57', '2022-12-26 19:11:57'),
+(12, 'It is something else', 1, 8, 'sdgdsfdfsd I t is somedfghsx fgd;fjsdfjdkcnvgjdfhfjdhdvgdfv', 0, 0, 'it-is-something-else', 0, 1, 0, '2022-12-26 19:12:24', '2022-12-26 19:12:24'),
+(13, 'For sure it has multiple tags', 2, 8, 'sdfdsfdfs edjfhsdjfhj sdjfhdjhfjkdhfjkh  sfgdhgfhdgfhb sdfhgdhfgdhfgsdh edfhdghfgdhfd', 0, 0, 'for-sure-it-has-multiple-tags', 0, 1, 0, '2022-12-26 19:13:03', '2022-12-26 19:13:03'),
+(14, 'I am unique', 2, 8, 'I am unique guy.... Don\'t underestimate me', 0, 0, 'i-am-unique', 0, 1, 0, '2022-12-26 19:14:13', '2022-12-26 19:14:13'),
+(15, 'I am unique', 2, 8, 'I am unique guy.... Don\'t underestimate me', 0, 0, 'i-am-unique', 0, 1, 0, '2022-12-26 19:14:30', '2022-12-26 19:14:30'),
+(16, 'I am not unique', 1, 8, 'I am literally not unique.... lol', 0, 0, 'i-am-not-unique', 0, 1, 0, '2022-12-26 19:15:36', '2022-12-26 19:15:36'),
+(17, 'how to make slime without activater', 1, 8, 'idk how to make a slime plz can anyone teach mne how to make i really idk', 0, 0, 'how-to-make-slime-without-activater', 0, 1, 0, '2022-12-26 19:20:55', '2022-12-26 19:20:55'),
+(18, 'Defined the mutator', 1, 8, 'I have defined the mutator in this question. Now I know How does this work :- D', 0, 0, 'defined-the-mutator', 0, 1, 0, '2022-12-27 14:54:44', '2022-12-27 14:54:44'),
+(19, 'There are some mutators', 2, 8, 'There are some mutators around us....', 0, 0, 'there-are-some-mutators', 0, 1, 0, '2022-12-27 14:57:51', '2022-12-27 14:57:51'),
+(20, 'The slug has been mutated', 1, 8, 'The slug of this question has been mutated', 0, 0, 'the-slug-has-been-mutated', 0, 1, 0, '2022-12-27 15:02:57', '2022-12-27 15:02:57'),
+(21, 'is loop needed', 2, 8, 'Is loop really needed???? huh?????', 0, 0, 'is-loop-needed', 0, 1, 0, '2022-12-27 15:05:32', '2022-12-27 15:05:32'),
+(22, '1234567891012', 1, 9, 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxys', 0, 0, '1234567891012', 0, 1, 0, '2023-02-01 09:36:57', '2023-02-01 09:36:57'),
+(23, 'Formula of Mathematics???????', 2, 9, 'I am quiet new in Maths.... I forgot the formula of (a+b)^2 I\'d be happy if someone tells me the answer.. Thanks', 0, 0, 'formula-of-mathematics', 0, 1, 0, '2023-02-01 09:39:35', '2023-02-01 09:39:35'),
+(24, 'What is the linear algebra?', 1, 9, 'What is the purpose of linear algebra in computer science?\r\nWhat are the works of Matrix? \r\n\r\nIs there anything related? \r\n\r\nThank you :)', 0, 0, 'what-is-the-linear-algebra', 0, 1, 0, '2023-02-01 13:55:08', '2023-02-01 13:55:08'),
+(25, 'dsdsdsfdfdfdf', 1, 8, 'sdsdsadsdsfsdsdsdfsfdssdsdsfsddw', 0, 0, 'dsdsdsfdfdfdf', 0, 1, 0, '2023-02-02 06:29:57', '2023-02-02 06:29:57'),
+(26, 'dsdsdsfdfdfdf', 1, 8, 'sdsdsadsdsfsdsdsdfsfdssdsdsfsddw', 0, 0, 'dsdsdsfdfdfdf', 0, 1, 0, '2023-02-02 06:55:24', '2023-02-02 06:55:24'),
+(27, 'dsdsdsfdfdfdf', 1, 8, 'sdsdsadsdsfsdsdsdfsfdssdsdsfsddw', 0, 0, 'dsdsdsfdfdfdf', 0, 1, 0, '2023-02-02 06:56:14', '2023-02-02 06:56:14'),
+(28, 'sdsdsdsdsdsdsads', 1, 8, 'sdsdsadsadsadsadsadsadsadfwdwsddfwsdw', 0, 0, 'sdsdsdsdsdsdsads', 0, 1, 0, '2023-02-02 06:56:54', '2023-02-02 06:56:54'),
+(29, 'sdfsdsdsdsadsads', 2, 8, 'sdsadsadsadsadsdsdsdsdsdsdsadsdsdsad', 0, 0, 'sdfsdsdsdsadsads', 0, 1, 0, '2023-02-02 06:57:16', '2023-02-02 06:57:16'),
+(30, 'dfsfsdsdsdsdsad', 2, 8, 'sdsdsdsdsdsdsdsdsadsdsddsdsdsadsads', 0, 0, 'dfsfsdsdsdsdsad', 0, 1, 0, '2023-02-02 07:03:58', '2023-02-02 07:03:58'),
+(31, 'In this question I will get my second badge', 2, 8, 'In this jsdfhdjhfdjhfjksdhfjdhfjdsfjsdjfjhfjk', 0, 0, 'in-this-question-i-will-get-my-second-badge', 0, 1, 0, '2023-02-02 07:05:04', '2023-02-02 07:05:04'),
+(32, 'fsdfdsfdsfdfsdfd', 1, 8, 'dfdfdsfdsfdfdsfsdfsdfsdfdsfsdfsdfsdf', 0, 0, 'fsdfdsfdsfdfsdfd', 0, 1, 0, '2023-02-02 07:05:17', '2023-02-02 07:05:17'),
+(33, 'jhdfjdhfjdhfjkdjfkhd', 2, 8, 'sdhfjdhfjdhfjkdhfjkhdsjkfhsdjkfhdjfdks', 0, 0, 'jhdfjdhfjdhfjkdjfkhd', 0, 1, 0, '2023-02-02 07:05:50', '2023-02-02 07:05:50'),
+(34, 'jhdfjdhfjdhfjkdjfkhd', 2, 8, 'sdhfjdhfjdhfjkdhfjkhdsjkfhsdjkfhdjfdks', 0, 0, 'jhdfjdhfjdhfjkdjfkhd', 0, 1, 0, '2023-02-02 07:05:58', '2023-02-02 07:05:58'),
+(35, 'sfsdfdsfdfdfdf', 1, 8, 'dfdsfsdfdfdsfdfsdfdsfsdfsdfdsfsdfsdf', 0, 0, 'sfsdfdsfdfdfdf', 0, 1, 0, '2023-02-02 07:06:18', '2023-02-02 07:06:18'),
+(36, 'sfsdfdsfdfdfdf', 1, 8, 'dfdsfsdfdfdsfdfsdfdsfsdfsdfdsfsdfsdf', 0, 0, 'sfsdfdsfdfdfdf', 0, 1, 0, '2023-02-02 07:06:23', '2023-02-02 07:06:23'),
+(37, '40fdfdfsdfsdfdsf', 2, 8, 'dfsdfsdfsdfsdfsdfdfsdfdsfdsfdsfsdfdsf', 0, 0, '40fdfdfsdfsdfdsf', 0, 1, 0, '2023-02-02 07:07:35', '2023-02-02 07:07:35'),
+(38, '1238768765754', 1, 8, 'That is quiet awkward to do that', 1, 1, 'monkey', 1, 1, 0, NULL, NULL),
+(39, '1238768765754', 1, 8, 'That is quiet awkward to do that', 1, 1, 'monkey', 1, 1, 0, NULL, NULL),
+(40, '1238768765754', 1, 8, 'That is quiet awkward to do that', 1, 1, 'monkey', 1, 1, 0, NULL, NULL),
+(41, '1238768765754', 1, 8, 'That is quiet awkward to do that', 1, 1, 'monkey', 1, 1, 0, NULL, NULL),
+(42, '1238768765754', 1, 8, 'That is quiet awkward to do that', 1, 1, 'monkey', 1, 1, 0, NULL, NULL),
+(43, '1238768765754', 1, 8, 'That is quiet awkward to do that', 1, 1, 'monkey', 1, 1, 0, NULL, NULL),
+(44, '1238768765754', 1, 8, 'That is quiet awkward to do that', 1, 1, 'monkey', 1, 1, 0, NULL, NULL),
+(45, '1238768765754', 1, 8, 'That is quiet awkward to do that', 1, 1, 'monkey', 1, 1, 0, NULL, NULL),
+(46, '1238768765754', 1, 8, 'That is quiet awkward to do that', 1, 1, 'monkey', 1, 1, 0, NULL, NULL),
+(47, '1238768765754', 1, 8, 'That is quiet awkward to do that', 1, 1, 'monkey', 1, 1, 0, NULL, NULL),
+(48, '1238768765754', 1, 8, 'That is quiet awkward to do that', 1, 1, 'monkey', 1, 1, 0, NULL, NULL),
+(49, '1238768765754', 1, 8, 'That is quiet awkward to do that', 1, 1, 'monkey', 1, 1, 0, NULL, NULL),
+(50, '1238768765754', 1, 8, 'That is quiet awkward to do that', 1, 1, 'monkey', 1, 1, 0, NULL, NULL),
+(51, '1238768765754', 1, 8, 'That is quiet awkward to do that', 1, 1, 'monkey', 1, 1, 0, NULL, NULL),
+(52, '1238768765754', 1, 8, 'That is quiet awkward to do that', 1, 1, 'monkey', 1, 1, 0, NULL, NULL),
+(53, '1238768765754', 1, 8, 'That is quiet awkward to do that', 1, 1, 'monkey', 1, 1, 0, NULL, NULL),
+(54, '1238768765754', 1, 8, 'That is quiet awkward to do that', 1, 1, 'monkey', 1, 1, 0, NULL, NULL),
+(55, '1238768765754', 1, 8, 'That is quiet awkward to do that', 1, 1, 'monkey', 1, 1, 0, NULL, NULL),
+(56, 'sdsdsadsadsadsad', 1, 8, 'sadsadsadsadsadsadsadsadsadsadsadsadsa', 0, 0, 'sdsdsadsadsadsad', 0, 1, 0, '2023-02-02 07:13:44', '2023-02-02 07:13:44'),
+(57, 'Guru Badge', 1, 8, 'I got my badge of guru/////////', 0, 0, 'guru-badge', 0, 1, 0, '2023-02-02 07:14:53', '2023-02-02 07:14:53'),
+(58, 'sdsdsdsdsdsdsad', 1, 8, 'sdsdsdsdsdsadsdsdsdsdsdsdsdsdsds', 0, 0, 'sdsdsdsdsdsdsad', 0, 1, 0, '2023-02-02 07:15:14', '2023-02-02 07:15:14'),
+(59, 'sdsdsdsdsdsdsad', 1, 8, 'sdsdsdsdsdsadsdsdsdsdsdsdsdsdsds', 0, 0, 'sdsdsdsdsdsdsad', 0, 1, 0, '2023-02-02 07:15:19', '2023-02-02 07:15:19'),
+(60, '1238768765754', 1, 8, 'That is quiet awkward to do that', 1, 1, 'monkey', 1, 1, 0, NULL, NULL),
+(61, '1238768765754', 1, 8, 'That is quiet awkward to do that', 1, 1, 'monkey', 1, 1, 0, NULL, NULL),
+(62, '1238768765754', 1, 8, 'That is quiet awkward to do that', 1, 1, 'monkey', 1, 1, 0, NULL, NULL),
+(63, '1238768765754', 1, 8, 'That is quiet awkward to do that', 1, 1, 'monkey', 1, 1, 0, NULL, NULL),
+(64, '1238768765754', 1, 8, 'That is quiet awkward to do that', 1, 1, 'monkey', 1, 1, 0, NULL, NULL),
+(65, '1238768765754', 1, 8, 'That is quiet awkward to do that', 1, 1, 'monkey', 1, 1, 0, NULL, NULL),
+(66, '1238768765754', 1, 8, 'That is quiet awkward to do that', 1, 1, 'monkey', 1, 1, 0, NULL, NULL),
+(67, '1238768765754', 1, 8, 'That is quiet awkward to do that', 1, 1, 'monkey', 1, 1, 0, NULL, NULL),
+(68, '1238768765754', 1, 8, 'That is quiet awkward to do that', 1, 1, 'monkey', 1, 1, 0, NULL, NULL),
+(69, '1238768765754', 1, 8, 'That is quiet awkward to do that', 1, 1, 'monkey', 1, 1, 0, NULL, NULL),
+(70, '1238768765754', 1, 8, 'That is quiet awkward to do that', 1, 1, 'monkey', 1, 1, 0, NULL, NULL),
+(71, '1238768765754', 1, 8, 'That is quiet awkward to do that', 1, 1, 'monkey', 1, 1, 0, NULL, NULL),
+(72, '1238768765754', 1, 8, 'That is quiet awkward to do that', 1, 1, 'monkey', 1, 1, 0, NULL, NULL),
+(73, '1238768765754', 1, 8, 'That is quiet awkward to do that', 1, 1, 'monkey', 1, 1, 0, NULL, NULL),
+(74, '1238768765754', 1, 8, 'That is quiet awkward to do that', 1, 1, 'monkey', 1, 1, 0, NULL, NULL),
+(75, '1238768765754', 1, 8, 'That is quiet awkward to do that', 1, 1, 'monkey', 1, 1, 0, NULL, NULL),
+(76, '1238768765754', 1, 8, 'That is quiet awkward to do that', 1, 1, 'monkey', 1, 1, 0, NULL, NULL),
+(77, '1238768765754', 1, 8, 'That is quiet awkward to do that', 1, 1, 'monkey', 1, 1, 0, NULL, NULL),
+(78, '1238768765754', 1, 8, 'That is quiet awkward to do that', 1, 1, 'monkey', 1, 1, 0, NULL, NULL),
+(79, '1238768765754', 1, 8, 'That is quiet awkward to do that', 1, 1, 'monkey', 1, 1, 0, NULL, NULL),
+(80, '1238768765754', 1, 8, 'That is quiet awkward to do that', 1, 1, 'monkey', 1, 1, 0, NULL, NULL),
+(81, '1238768765754', 1, 8, 'That is quiet awkward to do that', 1, 1, 'monkey', 1, 1, 0, NULL, NULL),
+(82, '1238768765754', 1, 8, 'That is quiet awkward to do that', 1, 1, 'monkey', 1, 1, 0, NULL, NULL),
+(83, '1238768765754', 1, 8, 'That is quiet awkward to do that', 1, 1, 'monkey', 1, 1, 0, NULL, NULL),
+(84, '1238768765754', 1, 8, 'That is quiet awkward to do that', 1, 1, 'monkey', 1, 1, 0, NULL, NULL),
+(85, '1238768765754', 1, 8, 'That is quiet awkward to do that', 1, 1, 'monkey', 1, 1, 0, NULL, NULL),
+(86, '1238768765754', 1, 8, 'That is quiet awkward to do that', 1, 1, 'monkey', 1, 1, 0, NULL, NULL),
+(87, '1238768765754', 1, 8, 'That is quiet awkward to do that', 1, 1, 'monkey', 1, 1, 0, NULL, NULL),
+(88, '1238768765754', 1, 8, 'That is quiet awkward to do that', 1, 1, 'monkey', 1, 1, 0, NULL, NULL),
+(89, '1238768765754', 1, 8, 'That is quiet awkward to do that', 1, 1, 'monkey', 1, 1, 0, NULL, NULL),
+(90, '1238768765754', 1, 8, 'That is quiet awkward to do that', 1, 1, 'monkey', 1, 1, 0, NULL, NULL),
+(91, '1238768765754', 1, 8, 'That is quiet awkward to do that', 1, 1, 'monkey', 1, 1, 0, NULL, NULL),
+(92, '1238768765754', 1, 8, 'That is quiet awkward to do that', 1, 1, 'monkey', 1, 1, 0, NULL, NULL),
+(93, '1238768765754', 1, 8, 'That is quiet awkward to do that', 1, 1, 'monkey', 1, 1, 0, NULL, NULL),
+(94, '1238768765754', 1, 8, 'That is quiet awkward to do that', 1, 1, 'monkey', 1, 1, 0, NULL, NULL),
+(95, '1238768765754', 1, 8, 'That is quiet awkward to do that', 1, 1, 'monkey', 1, 1, 0, NULL, NULL),
+(96, '1238768765754', 1, 8, 'That is quiet awkward to do that', 1, 1, 'monkey', 1, 1, 0, NULL, NULL),
+(97, '1238768765754', 1, 8, 'That is quiet awkward to do that', 1, 1, 'monkey', 1, 1, 0, NULL, NULL),
+(98, '1238768765754', 1, 8, 'That is quiet awkward to do that', 1, 1, 'monkey', 1, 1, 0, NULL, NULL),
+(99, '1238768765754', 1, 8, 'That is quiet awkward to do that', 1, 1, 'monkey', 1, 1, 0, NULL, NULL),
+(100, '1238768765754', 1, 8, 'That is quiet awkward to do that', 1, 1, 'monkey', 1, 1, 0, NULL, NULL),
+(101, '1238768765754', 1, 8, 'That is quiet awkward to do that', 1, 1, 'monkey', 1, 1, 0, NULL, NULL),
+(102, '1238768765754', 1, 8, 'That is quiet awkward to do that', 1, 1, 'monkey', 1, 1, 0, NULL, NULL),
+(103, '1238768765754', 1, 8, 'That is quiet awkward to do that', 1, 1, 'monkey', 1, 1, 0, NULL, NULL),
+(104, '1238768765754', 1, 8, 'That is quiet awkward to do that', 1, 1, 'monkey', 1, 1, 0, NULL, NULL),
+(105, '1238768765754', 1, 8, 'That is quiet awkward to do that', 1, 1, 'monkey', 1, 1, 0, NULL, NULL),
+(106, '1238768765754', 1, 8, 'That is quiet awkward to do that', 1, 1, 'monkey', 1, 1, 0, NULL, NULL),
+(107, '1238768765754', 1, 8, 'That is quiet awkward to do that', 1, 1, 'monkey', 1, 1, 0, NULL, NULL),
+(108, 'fsfsdfsdfsfdf', 2, 8, 'sdfsdfsdfsdfdfdfdfdfdfdfdfdfdfdfdfd', 0, 0, 'fsfsdfsdfsfdf', 0, 1, 0, '2023-02-02 07:16:25', '2023-02-02 07:16:25'),
+(109, 'I need the badge', 2, 9, 'I jsut want the badge to do flexing with my friends', 0, 0, 'i-need-the-badge', 0, 1, 0, '2023-02-02 14:17:14', '2023-02-02 14:17:14'),
+(110, 'Sfhdjfhdjkfhdjhfdjkfh', 1, 9, 'fdhfjdhfjkdhfjkdshfjksdfsdhjkhd', 0, 0, 'sfhdjfhdjkfhdjhfdjkfh', 0, 1, 0, '2023-02-02 14:35:38', '2023-02-02 14:35:38'),
+(111, 'sdfsdfdfdfdfdf', 1, 9, 'dfsdfsdfdsfdsfdfdfdfdfdfdsfdsfd', 0, 0, 'sdfsdfdfdfdfdf', 0, 1, 0, '2023-02-02 14:36:00', '2023-02-02 14:36:00'),
+(112, 'Clients in fiverr', 1, 10, 'I have been using fiverr from so long. Still, I am not be able to get clients in fiverr. What is the reason?', 0, 0, 'clients-in-fiverr', 0, 1, 0, '2023-02-06 14:34:19', '2023-02-06 14:34:19'),
+(113, 'Second questions', 2, 10, 'It is definitely the second questions', 0, 0, 'second-questions', 0, 1, 0, '2023-02-06 14:35:46', '2023-02-06 14:35:46'),
+(114, 'again questions', 1, 10, 'It is the second questionsdffa', 0, 0, 'again-questions', 0, 1, 0, '2023-02-06 14:38:03', '2023-02-06 14:38:03'),
+(115, 'sfsdfdfdfdfdf', 2, 10, 'dfdfdfdfdsfdfdfdfdfsdfdsfdfdfsdfdsf', 0, 0, 'sfsdfdfdfdfdf', 0, 1, 0, '2023-02-06 14:38:18', '2023-02-06 14:38:18'),
+(116, 'the another thrwed', 1, 10, 'sfsdfsdsdsdsadsadsdsadsdsdsdsdsd', 0, 0, 'the-another-thrwed', 0, 1, 0, '2023-02-06 14:38:40', '2023-02-06 14:38:40'),
+(117, 'sample questuo', 1, 10, 'It is a sample question.........', 0, 0, 'sample-questuo', 0, 1, 0, '2023-02-10 02:07:31', '2023-02-10 02:07:31'),
+(118, 'another sample questions', 2, 10, 'it is another sample question..', 0, 0, 'another-sample-questions', 0, 1, 0, '2023-02-10 02:08:32', '2023-02-10 02:08:32'),
+(119, 'Another questions', 2, 10, 'It is anorghwer questiobn to dodf', 0, 0, 'another-questions', 0, 1, 0, '2023-02-10 04:55:45', '2023-02-10 04:55:45'),
+(120, 'Is wordpress the future?', 1, 11, 'Hi, I am Laravel developer. I awlays feel strange that is wordpress the future? because many websites can be created by the wordpress easily..\r\n\r\nWill laravel die? or core PHP die? Help me in this situation :(', 0, 0, 'is-wordpress-the-future', 0, 1, 14, '2023-08-10 16:44:31', '2023-08-10 21:53:44'),
+(121, 'Wha is shopify', 2, 11, 'shfkjdfkjhdsgfhdgfhdgfhdgfjhdgfjhdgfhdgdhsdhfjhdgfhdhfdshfdhfdfhdjbfd', 0, 0, 'wha-is-shopify', 0, 1, 0, '2023-08-10 16:47:16', '2023-08-10 16:47:16');
 
 -- --------------------------------------------------------
 
@@ -494,7 +502,9 @@ INSERT INTO `question_tag` (`question_id`, `tag_id`, `created_at`, `updated_at`)
 (116, 1, NULL, NULL),
 (117, 1, NULL, NULL),
 (118, 2, NULL, NULL),
-(119, 2, NULL, NULL);
+(119, 2, NULL, NULL),
+(120, 1, NULL, NULL),
+(121, 1, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -576,7 +586,9 @@ INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `re
 (7, 'monkey', 'mk@gmail.com', NULL, '$2y$10$CcbSt72TelMpB8FFPsj7wuAxzNzGarE8D1IxQAMKJA3S6bXOQObOi', NULL, '2022-12-17 01:27:15', '2022-12-17 01:27:15', 'beluga'),
 (8, 'goofy', 'gf@hotmail.com', NULL, '$2y$10$A9exMFRNaVXpHgZqV/5T/OZamOI5zO5KHvXcjYy8e/W5ViYTgJAjm', NULL, '2022-12-25 18:49:27', '2022-12-25 18:49:27', 'goofyguy'),
 (9, 'tanzeela', 'tanzu@gmail.com', NULL, '$2y$10$b8Ycfffb9RW8xn72ccp1puv0oFFubbdgl7ghuduE66sefHlJtKnti', NULL, '2023-02-01 06:24:09', '2023-02-01 06:24:09', 'tanzubanzu'),
-(10, 'hashim abbas jafferies', 'fiverr78666@gmail.com', NULL, '$2y$10$7xWw9SG064HtDephPh/ZOOs7y5ELJ1jzq8mXZKD79UE6Q/Ca7Z8Lm', NULL, '2023-02-06 14:12:53', '2023-02-10 02:05:22', 'hashim');
+(10, 'hashim abbas jafferies', 'fiverr78666@gmail.com', NULL, '$2y$10$7xWw9SG064HtDephPh/ZOOs7y5ELJ1jzq8mXZKD79UE6Q/Ca7Z8Lm', NULL, '2023-02-06 14:12:53', '2023-02-10 02:05:22', 'hashim'),
+(11, 'hashim', 'gamerverse14@gmail.com', NULL, '$2y$10$P5rC2DAj73QueDGIMC2rxuxJ5F/SdE7v481A63PxDFx2oVQ36yXmm', NULL, '2023-08-10 16:42:31', '2023-08-10 16:42:31', 'the_hashim'),
+(12, 'danish', 'danish@gmail.com', NULL, '$2y$10$I59BF4lIKwwvwwqU2ZoHzeG2LyhQQ6dHp6HsR9KR2JTWONeFKUeHW', NULL, '2023-08-10 17:01:04', '2023-08-10 17:01:04', 'danish123');
 
 -- --------------------------------------------------------
 
@@ -604,7 +616,8 @@ INSERT INTO `user_badges` (`id`, `user_id`, `badge_id`, `created_at`, `updated_a
 (11, 9, 1, NULL, NULL),
 (12, 9, 2, NULL, NULL),
 (14, 10, 1, NULL, NULL),
-(16, 10, 2, NULL, NULL);
+(16, 10, 2, NULL, NULL),
+(17, 11, 1, NULL, NULL);
 
 --
 -- Indexes for dumped tables
@@ -735,7 +748,7 @@ ALTER TABLE `categories`
 -- AUTO_INCREMENT for table `comments`
 --
 ALTER TABLE `comments`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -753,7 +766,7 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `notifications`
 --
 ALTER TABLE `notifications`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
@@ -765,13 +778,13 @@ ALTER TABLE `personal_access_tokens`
 -- AUTO_INCREMENT for table `profile`
 --
 ALTER TABLE `profile`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `questions`
 --
 ALTER TABLE `questions`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=120;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=122;
 
 --
 -- AUTO_INCREMENT for table `replies`
@@ -789,13 +802,13 @@ ALTER TABLE `tags`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `user_badges`
 --
 ALTER TABLE `user_badges`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- Constraints for dumped tables
