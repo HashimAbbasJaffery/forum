@@ -1,17 +1,24 @@
 <x-layouts>
 		<x-navbar />
             <div class="topics">
-                <div class="topics__heading">
-                    <h2 class="topics__heading-title">{{ $question->title }}?</h2>
-                    <div class="topics__heading-info">
-                        <a href="#" class="category"><i class="bg-3ebafa"></i>{{ $question->category->name }}</a>
-                        <div class="tags">
-                            @forelse ($question->tags as $tag)
-                                <x-link class="bg-4f80b0" href="/?tag={{ $tag->name }}">{{ $tag->name }}</x-link>
-                            @empty
-                                
-                            @endforelse
+                <div class="topic-header">
+                    <div class="topics__heading">
+                        <h2 class="topics__heading-title">{{ $question->title }}?</h2>
+                        <div class="topics__heading-info">
+                            <a href="#" class="category"><i class="bg-3ebafa"></i>{{ $question->category->name }}</a>
+                            <div class="tags">
+                                @forelse ($question->tags as $tag)
+                                    <x-link class="bg-4f80b0" href="/?tag={{ $tag->name }}">{{ $tag->name }}</x-link>
+                                @empty
+                                    
+                                @endforelse
+                            </div>
                         </div>
+                    </div>
+                    <div class="vote-question">
+                        <button class="upvote">Upvote</button>
+                        <p class="votes">{{ $question->votes ?? 0 }}</p>
+                        <button class="downvote">Downvote</button>
                     </div>
                 </div>
                 <div class="topics__body">
@@ -44,5 +51,63 @@
                     {{-- <x-topic-calender /> --}}
                 </div>
             </div>
-        <x-posts-table :questions="$questions"/>    
+        <x-posts-table :questions="$questions"/>
+        {{-- @dd( auth()->user()->profile->reputa )     --}}
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.4.0/axios.min.js" integrity="sha512-uMtXmF28A2Ab/JJO2t/vYhlaa/3ahUOgj1Zf27M5rOo8/+fcTUVH0/E0ll68njmjrLqOBjXM3V9NiPFL5ywWPQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        const dispatch = (url, dataset, success, failed) => {
+            axios.post(url, dataset)
+            .then(res => {
+                success(res);
+            })
+            .catch(err => {
+                failed(res);
+            })
+        }
+
+        const upvote = document.querySelector(".upvote");
+        const downvote = document.querySelector(".downvote");
+        
+        const successCallback = res => {
+            console.log(res);
+            const voteElement = document.querySelector(".votes");
+            const votes = res.data.votes;
+            const isSuccess = res.data.status;
+            if(isSuccess) {
+                voteElement.textContent = votes
+            } else {
+                const error = document.getElementById("error");
+                const message = res.data.message;
+                error.innerHTML = `<p>${message}</p>`
+                error.style.display = "block";
+                setTimeout(() => {
+                    error.style.display = "none";
+                }, 10000)
+            }
+        }
+        const failedCallback = (res) => {
+            console.log(res);
+        }
+        upvote.addEventListener("click", () => {
+            dispatch(
+                "/question/{{ $question->slug }}/upvote",
+                {
+                    voteType: "up"
+                },
+                successCallback,
+                failedCallback
+            )
+        })
+        
+        downvote.addEventListener("click", () => {
+            dispatch(
+                "/question/{{ $question->slug }}/upvote",
+                {
+                    voteType: "down"
+                },
+                successCallback
+            )
+        })
+        
+    </script>
 </x-layouts>

@@ -3554,3 +3554,43 @@ a:hover {
 .bg-218380 {
   background-color: #218380 !important;
 }
+.topic-header {
+  display: flex;
+  justify-content: space-between;
+}
+.vote-question {
+  margin-right: 20px;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.upvote,
+.downvote {
+  cursor: pointer;
+}
+.upvote:hover,
+.downvote:hover {
+  text-decoration: underline;
+}
+.votes {
+  font-size: 50px;
+  font-weight: bolde;
+}
+
+#error {
+  position: fixed;
+  border: 1px solid red;
+  background: rgba(252, 118, 118);
+  color: white;
+  width: 50%;
+  text-align: center;
+  padding: 5px 5px;
+  margin-top: 10px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 4px;
+  top: 30px;
+  display: none;
+  z-index: 2;
+}

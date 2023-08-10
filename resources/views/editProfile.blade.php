@@ -6,7 +6,7 @@
         <p class="text-danger mb-5 hidden messages" id="email-message" style="font-weight: bold;">It can not be empty</p>
         <x-form.input type="email" id="email" name="email" value="{{ $profile->email }}"/>
         <p class="text-danger mb-5 hidden messages" id="description-message" style="font-weight: bold;">It can not be empty</p>
-        <x-form.textarea name="description" id="description" value="{{ $profile->profile->description }}"/>
+        <x-form.textarea name="description" id="description" value="{{ $profile->profile->description ?? '' }}"/>
         <x-form.input type="submit" id="btn" name="submit" value="edit" isLabeled="false"/>
         <p class="alert alert-success" id="success" style="display: none;position: fixed; bottom: 0; right: 1%; z-index: 10;">Successfully updated</p>
         <script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>

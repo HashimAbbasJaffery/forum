@@ -17,6 +17,7 @@ class Question extends Model
 		'downvotes' => 0,
 		'hearts' => 0,
 		'status' => 1,
+		'title' => 'h'
 	];
 	protected $guarded = ["id", "created_at", "updated_at"];
 	protected $with = ["user", "category", "tags", "comments"];

@@ -34,6 +34,9 @@
     </script>
 </head>
 <body>
+    <div id="error">
+        <p>It is the error!</p>
+    </div>
     <i class="fa-regular fa-up"></i>
     <!-- HEADER -->
     <header>

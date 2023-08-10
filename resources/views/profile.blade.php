@@ -36,6 +36,10 @@
             <h1 class="text-6xl mb-4">Comments</h1>
             <p class="text-center">{{ count($user->comments) }} Comments</p>
         </div>
+        <div class="replies">
+            <h1 class="text-6xl mb-4">Reputation</h1>
+            <p class="text-center">{{ $user->profile->reputation ?? 0 }} rep score</p>
+        </div>
     </div>
     @if(count($user->badges) > 0)
         <hr class="mt-10" style="background: rgba(0, 0, 0, 0.4); height: 1px;" />
