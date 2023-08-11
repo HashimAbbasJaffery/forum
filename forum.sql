@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 10, 2023 at 09:03 PM
+-- Generation Time: Aug 11, 2023 at 10:50 PM
 -- Server version: 10.4.28-MariaDB
--- PHP Version: 8.2.4
+-- PHP Version: 8.0.28
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -222,7 +222,73 @@ INSERT INTO `notifications` (`id`, `user_id`, `isRead`, `message`, `created_at`,
 (8, 9, 1, 'goofy just commented on <span class=\'font-bold\'>What is the linear algebra?</span>', '2022-12-26 19:21:34', NULL),
 (9, 9, 1, 'goofy just commented on <strong>What is the linear algebra?</strong>', '2022-12-26 19:21:34', NULL),
 (10, 9, 1, 'goofy just commented on <strong>What is the linear algebra?</strong>', '2022-12-26 19:21:34', NULL),
-(11, 11, 1, 'danish just commented on <strong>Is wordpress the future?</strong>', NULL, NULL);
+(11, 11, 1, 'You have been awarded a badge', NULL, NULL),
+(12, 14, 1, 'Got got 5 more Reputation', NULL, NULL),
+(13, 14, 1, 'Got got 5 more Reputation', NULL, NULL),
+(14, 14, 1, 'Got 5 more Reputation', NULL, NULL),
+(15, 14, 1, 'Got 5 more Reputation', NULL, NULL),
+(16, 14, 1, 'Got 5 more Reputation', NULL, NULL),
+(17, 11, 1, 'You lost -5 reputations :(', NULL, NULL),
+(18, 11, 1, 'You lost 5 reputations :(', NULL, NULL),
+(19, 14, 0, 'Got 5 more Reputation', NULL, NULL),
+(20, 14, 0, 'You lost 5 reputations :(', NULL, NULL),
+(21, 14, 0, 'Got 5 more Reputation', NULL, NULL),
+(22, 14, 0, 'Got 5 more Reputation', NULL, NULL),
+(23, 14, 0, 'You lost 5 reputations :(', NULL, NULL),
+(24, 14, 0, 'Got 5 more Reputation', NULL, NULL),
+(25, 14, 0, 'Got 5 more Reputation', NULL, NULL),
+(26, 14, 0, 'Got 5 more Reputation', NULL, NULL),
+(27, 14, 0, 'Got 5 more Reputation', NULL, NULL),
+(28, 14, 0, 'You lost 5 reputations :(', NULL, NULL),
+(29, 14, 0, 'Got 5 more Reputation', NULL, NULL),
+(30, 14, 0, 'Got 5 more Reputation', NULL, NULL),
+(31, 14, 0, 'Got 5 more Reputation', NULL, NULL),
+(32, 14, 0, 'You lost 5 reputations :(', NULL, NULL),
+(33, 14, 0, 'Got 5 more Reputation', NULL, NULL),
+(34, 14, 0, 'Got 5 more Reputation', NULL, NULL),
+(35, 14, 0, 'You lost 5 reputations :(', NULL, NULL),
+(36, 14, 0, 'You lost 5 reputations :(', NULL, NULL),
+(37, 14, 0, 'Got 5 more Reputation', NULL, NULL),
+(38, 14, 0, 'Got 5 more Reputation', NULL, NULL),
+(39, 14, 0, 'Got 5 more Reputation', NULL, NULL),
+(40, 14, 0, 'Got 5 more Reputation', NULL, NULL),
+(41, 14, 0, 'Got 5 more Reputation', NULL, NULL),
+(42, 14, 0, 'You lost 5 reputations :(', NULL, NULL),
+(43, 14, 0, 'Got 5 more Reputation', NULL, NULL),
+(44, 14, 0, 'You lost 5 reputations :(', NULL, NULL),
+(45, 14, 0, 'Got 5 more Reputation', NULL, NULL),
+(46, 14, 0, 'You lost 5 reputations :(', NULL, NULL),
+(47, 14, 0, 'Got 5 more Reputation', NULL, NULL),
+(48, 14, 0, 'Got 5 more Reputation', NULL, NULL),
+(49, 14, 0, 'You lost 5 reputations :(', NULL, NULL),
+(50, 14, 0, 'Got 5 more Reputation', NULL, NULL),
+(51, 14, 0, 'Got 5 more Reputation', NULL, NULL),
+(52, 11, 0, 'Got 5 more Reputation', NULL, NULL),
+(53, 11, 0, 'Got 5 more Reputation', NULL, NULL),
+(54, 11, 0, 'Got 5 more Reputation', NULL, NULL),
+(55, 11, 0, 'Got 5 more Reputation', NULL, NULL),
+(56, 14, 0, 'Got 5 more Reputation', NULL, NULL),
+(57, 14, 0, 'Got 5 more Reputation', NULL, NULL),
+(58, 11, 0, 'Got 5 more Reputation', NULL, NULL),
+(59, 14, 0, 'Got 5 more Reputation', NULL, NULL),
+(60, 11, 0, 'Got 5 more Reputation', NULL, NULL),
+(61, 11, 0, 'Got 5 more Reputation', NULL, NULL),
+(62, 11, 0, 'Got 5 more Reputation', NULL, NULL),
+(63, 11, 0, 'Got 5 more Reputation', NULL, NULL),
+(64, 11, 0, 'Got 5 more Reputation', NULL, NULL),
+(65, 11, 0, 'Got 5 more Reputation', NULL, NULL),
+(66, 11, 0, 'Got 5 more Reputation', NULL, NULL),
+(67, 11, 0, 'Got 5 more Reputation', NULL, NULL),
+(68, 11, 0, 'Got 5 more Reputation', NULL, NULL),
+(69, 11, 0, 'Got 5 more Reputation', NULL, NULL),
+(70, 11, 0, 'Got 5 more Reputation', NULL, NULL),
+(71, 11, 0, 'You lost 5 reputations :(', NULL, NULL),
+(72, 11, 0, 'Got 5 more Reputation', NULL, NULL),
+(73, 11, 0, 'Got 5 more Reputation', NULL, NULL),
+(74, 11, 0, 'Got 5 more Reputation', NULL, NULL),
+(75, 11, 0, 'Got 5 more Reputation', NULL, NULL),
+(76, 11, 0, 'Got 5 more Reputation', NULL, NULL),
+(77, 11, 0, 'Got 5 more Reputation', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -278,10 +344,11 @@ CREATE TABLE `profile` (
 
 INSERT INTO `profile` (`id`, `user_id`, `profile_pic`, `description`, `is_private`, `reputation`, `created_at`, `updated_at`) VALUES
 (1, 8, 'hashim.jpg', 'I am enthusiastic web developer with 2 years of experience and learning something new constantly', 0, 0, NULL, NULL),
-(2, 9, 'hashim.jpg', 'I am none', 0, 0, NULL, NULL),
+(2, 9, 'hashim.jpg', 'I am none', 0, 5, NULL, '2023-08-11 02:18:38'),
 (3, 10, 'user-307993__340.webp', 'I have just changed something...s.s', 0, 0, NULL, '2023-02-10 02:05:22'),
-(4, 1, '', 'I am anonymous', 0, 5, NULL, '2023-08-10 22:16:32'),
-(5, 11, 'fotis-fotopoulos-6sAl6aQ4OWI-unsplash.jpg', '', 0, 20, NULL, '2023-08-10 21:53:44');
+(4, 1, '', 'I am anonymous', 0, 10, NULL, '2023-08-11 02:15:42'),
+(5, 11, 'fotis-fotopoulos-6sAl6aQ4OWI-unsplash.jpg', '', 0, 1105, NULL, '2023-08-12 03:43:40'),
+(6, 14, '', '', 0, 20, NULL, '2023-08-12 03:25:52');
 
 -- --------------------------------------------------------
 
@@ -300,7 +367,7 @@ CREATE TABLE `questions` (
   `slug` varchar(255) NOT NULL,
   `hearts` int(11) NOT NULL,
   `status` tinyint(1) NOT NULL,
-  `votes` int(11) NOT NULL,
+  `votes` int(11) NOT NULL DEFAULT 0,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -312,7 +379,7 @@ CREATE TABLE `questions` (
 INSERT INTO `questions` (`id`, `title`, `category_id`, `user_id`, `description`, `upvotes`, `downvotes`, `slug`, `hearts`, `status`, `votes`, `created_at`, `updated_at`) VALUES
 (1, 'How to achieve XYZ in Laravel', 1, 1, '<p>It is description</p><p>It is another description</p>', 1, 1, '1ff', 1, 1, -1, '2003-03-10 10:00:00', '2023-08-10 20:06:21'),
 (2, 'The second question', 1, 1, 'It is the second questiobn', 1, 1, 'eustion', 1, 1, 1, '2003-03-10 10:00:00', '2023-08-10 22:16:32'),
-(3, 'How gardening is being done?', 2, 1, 'How?', 1, 1, 'gard', 1, 1, 0, '2003-03-10 10:00:00', NULL),
+(3, 'How gardening is being done?', 2, 1, 'How?', 1, 1, 'gard', 1, 1, 1, '2003-03-10 10:00:00', '2023-08-11 02:15:42'),
 (4, 'Is it unique question', 1, 1, 'bla bla', 1, 1, 'bla', 1, 1, 0, '2003-03-10 10:00:00', NULL),
 (5, 'This is the car', 1, 8, 'THis is the carTHis is the carTHis is the carTHis is the car', 0, 0, 'this-is-the-car', 0, 1, 0, '2022-12-26 19:05:37', '2022-12-26 19:05:37'),
 (6, 'This is the car', 1, 8, 'THis is the carTHis is the carTHis is the carTHis is the car', 0, 0, 'this-is-the-car', 0, 1, 0, '2022-12-26 19:06:09', '2022-12-26 19:06:09'),
@@ -332,7 +399,7 @@ INSERT INTO `questions` (`id`, `title`, `category_id`, `user_id`, `description`,
 (20, 'The slug has been mutated', 1, 8, 'The slug of this question has been mutated', 0, 0, 'the-slug-has-been-mutated', 0, 1, 0, '2022-12-27 15:02:57', '2022-12-27 15:02:57'),
 (21, 'is loop needed', 2, 8, 'Is loop really needed???? huh?????', 0, 0, 'is-loop-needed', 0, 1, 0, '2022-12-27 15:05:32', '2022-12-27 15:05:32'),
 (22, '1234567891012', 1, 9, 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxys', 0, 0, '1234567891012', 0, 1, 0, '2023-02-01 09:36:57', '2023-02-01 09:36:57'),
-(23, 'Formula of Mathematics???????', 2, 9, 'I am quiet new in Maths.... I forgot the formula of (a+b)^2 I\'d be happy if someone tells me the answer.. Thanks', 0, 0, 'formula-of-mathematics', 0, 1, 0, '2023-02-01 09:39:35', '2023-02-01 09:39:35'),
+(23, 'Formula of Mathematics???????', 2, 9, 'I am quiet new in Maths.... I forgot the formula of (a+b)^2 I\'d be happy if someone tells me the answer.. Thanks', 0, 0, 'formula-of-mathematics', 0, 1, 1, '2023-02-01 09:39:35', '2023-08-11 02:18:38'),
 (24, 'What is the linear algebra?', 1, 9, 'What is the purpose of linear algebra in computer science?\r\nWhat are the works of Matrix? \r\n\r\nIs there anything related? \r\n\r\nThank you :)', 0, 0, 'what-is-the-linear-algebra', 0, 1, 0, '2023-02-01 13:55:08', '2023-02-01 13:55:08'),
 (25, 'dsdsdsfdfdfdf', 1, 8, 'sdsdsadsdsfsdsdsdfsfdssdsdsfsddw', 0, 0, 'dsdsdsfdfdfdf', 0, 1, 0, '2023-02-02 06:29:57', '2023-02-02 06:29:57'),
 (26, 'dsdsdsfdfdfdf', 1, 8, 'sdsdsadsdsfsdsdsdfsfdssdsdsfsddw', 0, 0, 'dsdsdsfdfdfdf', 0, 1, 0, '2023-02-02 06:55:24', '2023-02-02 06:55:24'),
@@ -429,8 +496,23 @@ INSERT INTO `questions` (`id`, `title`, `category_id`, `user_id`, `description`,
 (117, 'sample questuo', 1, 10, 'It is a sample question.........', 0, 0, 'sample-questuo', 0, 1, 0, '2023-02-10 02:07:31', '2023-02-10 02:07:31'),
 (118, 'another sample questions', 2, 10, 'it is another sample question..', 0, 0, 'another-sample-questions', 0, 1, 0, '2023-02-10 02:08:32', '2023-02-10 02:08:32'),
 (119, 'Another questions', 2, 10, 'It is anorghwer questiobn to dodf', 0, 0, 'another-questions', 0, 1, 0, '2023-02-10 04:55:45', '2023-02-10 04:55:45'),
-(120, 'Is wordpress the future?', 1, 11, 'Hi, I am Laravel developer. I awlays feel strange that is wordpress the future? because many websites can be created by the wordpress easily..\r\n\r\nWill laravel die? or core PHP die? Help me in this situation :(', 0, 0, 'is-wordpress-the-future', 0, 1, 14, '2023-08-10 16:44:31', '2023-08-10 21:53:44'),
-(121, 'Wha is shopify', 2, 11, 'shfkjdfkjhdsgfhdgfhdgfhdgfjhdgfjhdgfhdgdhsdhfjhdgfhdhfdshfdhfdfhdjbfd', 0, 0, 'wha-is-shopify', 0, 1, 0, '2023-08-10 16:47:16', '2023-08-10 16:47:16');
+(120, 'Is wordpress the future?', 1, 11, 'Hi, I am Laravel developer. I awlays feel strange that is wordpress the future? because many websites can be created by the wordpress easily..\r\n\r\nWill laravel die? or core PHP die? Help me in this situation :(', 0, 0, 'is-wordpress-the-future', 0, 1, 45, '2023-08-10 16:44:31', '2023-08-12 03:43:40'),
+(121, 'Wha is shopify', 2, 11, 'shfkjdfkjhdsgfhdgfhdgfhdgfjhdgfjhdgfhdgdhsdhfjhdgfhdhfdshfdhfdfhdjbfd', 0, 0, 'wha-is-shopify', 0, 1, 0, '2023-08-10 16:47:16', '2023-08-10 16:47:16'),
+(122, 'The new thread', 2, 11, 'It is the newest thread. we\'ve seen so far', 0, 0, 'the-new-thread', 0, 1, 0, '2023-08-11 02:31:15', '2023-08-11 02:31:15'),
+(123, 'How to create question?', 1, 11, 'How Do i create question in this app?', 0, 0, 'how-to-create-question', 0, 1, 0, '2023-08-11 02:41:35', '2023-08-11 02:41:35'),
+(124, 'How to create question?', 1, 11, 'How Do i create question in this app?', 0, 0, 'how-to-create-question', 0, 1, 0, '2023-08-11 02:41:43', '2023-08-11 02:41:43'),
+(125, 'Am I awarded?', 1, 13, 'Am I awarded a badge????????????', 0, 0, 'am-i-awarded', 0, 1, 0, '2023-08-11 02:43:53', '2023-08-11 02:43:53'),
+(126, 'Am I awarded?', 1, 13, 'Am I awarded a badge????????????', 0, 0, 'am-i-awarded', 0, 1, 0, '2023-08-11 02:44:39', '2023-08-11 02:44:39'),
+(127, 'Am I awarded?', 1, 13, 'Am I awarded a badge????????????', 0, 0, 'am-i-awarded', 0, 1, 0, '2023-08-11 02:44:42', '2023-08-11 02:44:42'),
+(128, 'Am I awarded?', 1, 13, 'Am I awarded a badge????????????', 0, 0, 'am-i-awarded', 0, 1, 0, '2023-08-11 02:44:45', '2023-08-11 02:44:45'),
+(129, 'It\'s my 5th question', 2, 13, 'It is my 5th post. it is testing', 0, 0, 'its-my-5th-question', 0, 1, 0, '2023-08-11 02:45:09', '2023-08-11 02:45:09'),
+(130, 'sdsdsadsdsdsads', 1, 14, 'sdsdsadsdsadsadsfwedsfsdfdfsdsdsd', 0, 0, 'sdsdsadsdsdsads', 0, 1, 41, '2023-08-11 02:46:20', '2023-08-12 03:25:52'),
+(131, 'sdsdsadsdsdsads', 1, 14, 'sdsdsadsdsadsadsfwedsfsdfdfsdsdsd', 0, 0, 'sdsdsadsdsdsads', 0, 1, 0, '2023-08-11 02:46:24', '2023-08-11 02:46:24'),
+(132, 'sdsdsadsdsdsads', 1, 14, 'sdsdsadsdsadsadsfwedsfsdfdfsdsdsd', 0, 0, 'sdsdsadsdsdsads', 0, 1, 0, '2023-08-11 02:46:27', '2023-08-11 02:46:27'),
+(133, 'sdsdsadsdsdsads', 1, 14, 'sdsdsadsdsadsadsfwedsfsdfdfsdsdsd', 0, 0, 'sdsdsadsdsdsads', 0, 1, 0, '2023-08-11 02:46:29', '2023-08-11 02:46:29'),
+(134, 'sdsdsadsdsdsads', 1, 14, 'sdsdsadsdsadsadsfwedsfsdfdfsdsdsd', 0, 0, 'sdsdsadsdsdsads', 0, 1, 0, '2023-08-11 02:46:32', '2023-08-11 02:46:32'),
+(135, 'sdsdsadsdsdsads', 1, 14, 'sdsdsadsdsadsadsfwedsfsdfdfsdsdsd', 0, 0, 'sdsdsadsdsdsads', 0, 1, 0, '2023-08-11 02:46:39', '2023-08-11 02:46:39'),
+(136, 'sdsdsadsdsdsads', 1, 14, 'sdsdsadsdsadsadsfwedsfsdfdfsdsdsd', 0, 0, 'sdsdsadsdsdsads', 0, 1, 0, '2023-08-11 02:49:48', '2023-08-11 02:49:48');
 
 -- --------------------------------------------------------
 
@@ -504,7 +586,22 @@ INSERT INTO `question_tag` (`question_id`, `tag_id`, `created_at`, `updated_at`)
 (118, 2, NULL, NULL),
 (119, 2, NULL, NULL),
 (120, 1, NULL, NULL),
-(121, 1, NULL, NULL);
+(121, 1, NULL, NULL),
+(122, 1, NULL, NULL),
+(123, 3, NULL, NULL),
+(124, 3, NULL, NULL),
+(125, 2, NULL, NULL),
+(126, 2, NULL, NULL),
+(127, 2, NULL, NULL),
+(128, 2, NULL, NULL),
+(129, 1, NULL, NULL),
+(130, 2, NULL, NULL),
+(131, 2, NULL, NULL),
+(132, 2, NULL, NULL),
+(133, 2, NULL, NULL),
+(134, 2, NULL, NULL),
+(135, 2, NULL, NULL),
+(136, 2, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -588,7 +685,10 @@ INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `re
 (9, 'tanzeela', 'tanzu@gmail.com', NULL, '$2y$10$b8Ycfffb9RW8xn72ccp1puv0oFFubbdgl7ghuduE66sefHlJtKnti', NULL, '2023-02-01 06:24:09', '2023-02-01 06:24:09', 'tanzubanzu'),
 (10, 'hashim abbas jafferies', 'fiverr78666@gmail.com', NULL, '$2y$10$7xWw9SG064HtDephPh/ZOOs7y5ELJ1jzq8mXZKD79UE6Q/Ca7Z8Lm', NULL, '2023-02-06 14:12:53', '2023-02-10 02:05:22', 'hashim'),
 (11, 'hashim', 'gamerverse14@gmail.com', NULL, '$2y$10$P5rC2DAj73QueDGIMC2rxuxJ5F/SdE7v481A63PxDFx2oVQ36yXmm', NULL, '2023-08-10 16:42:31', '2023-08-10 16:42:31', 'the_hashim'),
-(12, 'danish', 'danish@gmail.com', NULL, '$2y$10$I59BF4lIKwwvwwqU2ZoHzeG2LyhQQ6dHp6HsR9KR2JTWONeFKUeHW', NULL, '2023-08-10 17:01:04', '2023-08-10 17:01:04', 'danish123');
+(12, 'danish', 'danish@gmail.com', NULL, '$2y$10$I59BF4lIKwwvwwqU2ZoHzeG2LyhQQ6dHp6HsR9KR2JTWONeFKUeHW', NULL, '2023-08-10 17:01:04', '2023-08-10 17:01:04', 'danish123'),
+(13, 'adeel', 'adeel110@gmail.com', NULL, '$2y$10$tpg8Dq3I0aNu0CW59LJ0reaPgwBW0cJH57mHkBIcKlJflN8IGlaz.', NULL, '2023-08-11 02:43:13', '2023-08-11 02:43:13', 'adeel'),
+(14, 'example', 'example@gmail.com', NULL, '$2y$10$HYk2I7/DMNn97.I9DPl56OIcuS6AKl0f1yjdcAK//p87kGJb0fvFa', NULL, '2023-08-11 02:46:02', '2023-08-11 02:46:02', 'example'),
+(15, 'mesam', 'messam10@gmail.com', NULL, '$2y$10$CYHm0rPL5Vfu8OlR7gnF/O2VNm9hugFCm2CAPa2KK1y2JnkoUBoXK', NULL, '2023-08-12 03:18:55', '2023-08-12 03:18:55', 'messam110');
 
 -- --------------------------------------------------------
 
@@ -617,7 +717,12 @@ INSERT INTO `user_badges` (`id`, `user_id`, `badge_id`, `created_at`, `updated_a
 (12, 9, 2, NULL, NULL),
 (14, 10, 1, NULL, NULL),
 (16, 10, 2, NULL, NULL),
-(17, 11, 1, NULL, NULL);
+(17, 11, 1, NULL, NULL),
+(18, 11, 2, NULL, NULL),
+(19, 13, 1, NULL, NULL),
+(20, 13, 2, NULL, NULL),
+(21, 14, 1, NULL, NULL),
+(22, 14, 2, NULL, NULL);
 
 --
 -- Indexes for dumped tables
@@ -766,7 +871,7 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `notifications`
 --
 ALTER TABLE `notifications`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=78;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
@@ -778,13 +883,13 @@ ALTER TABLE `personal_access_tokens`
 -- AUTO_INCREMENT for table `profile`
 --
 ALTER TABLE `profile`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `questions`
 --
 ALTER TABLE `questions`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=122;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=137;
 
 --
 -- AUTO_INCREMENT for table `replies`
@@ -802,13 +907,13 @@ ALTER TABLE `tags`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `user_badges`
 --
 ALTER TABLE `user_badges`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- Constraints for dumped tables

@@ -3,9 +3,11 @@
 namespace App\Providers;
 
 use App\Events\BadgeAward;
+use App\Events\PlusReps;
 use App\Listeners\CommentNotification;
 use App\Events\NewComment;
 use App\Listeners\AwardNotify;
+use App\Listeners\PlusRepsNotify;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -27,6 +29,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         BadgeAward::class => [
             [AwardNotify::class, "handle"],
+        ],
+        PlusReps::class => [
+            [PlusRepsNotify::class, "handle"]
         ]
     ];
 

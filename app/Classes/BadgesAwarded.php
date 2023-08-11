@@ -10,6 +10,7 @@ class BadgesAwarded {
     protected $id;
     protected User $user;
     protected $awards = [];
+    protected $badgeFlag = [];
     function __construct(int $id) {
         $this->id = $id;
         $this->user = User::find($id);
@@ -41,10 +42,13 @@ class BadgesAwarded {
     protected function badge(int $id = 1, int $limit = 1) {
         // Award ID of the badge
         $awardId = $id;
+
         // Checks if the user meets the minimum requirements
         if (!$this->badgeClearence($limit)) return false;
+
         // checks if the user is already awarded this badge
         if ($this->isAlreadyAwarded($awardId)) return false;
+
         $this->awardBadge($id);
         return true;
     }
@@ -56,13 +60,17 @@ class BadgesAwarded {
         event(new BadgeAward($this->user, $id));
     }
     public function updateBadges() {
-        // newbie badge
         $this->showAllBadges();
+        
+        // newbie badge
         $this->badge(1, 1);
+
         // Master badge
         $this->badge(2, 5);
+
         // Guru badge
         $this->badge(3, 50);
+
         // Mastermind badge
         $this->badge(4, 100);
     }
