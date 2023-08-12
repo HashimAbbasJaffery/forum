@@ -14,6 +14,7 @@ use App\Classes\BadgesAwarded;
 use Illuminate\Foundation\Events\Dispatchable;
 use App\Events\NewComment;
 use App\Models\User;
+use App\Models\Vote;
 
 class QuestionController extends Controller
 {
@@ -66,9 +67,9 @@ class QuestionController extends Controller
 	}
 	public function show(Question $question)
 	{
-		$votes = $question->votes;
-		$upvotes = $votes->where("vote_type", "up")->count();
-		$downvotes = $votes->where("vote_type", "down")->count();
+		$votes = Vote::count();
+		$upvotes = Vote::where("vote_type", "up")->count();
+		$downvotes = Vote::where("vote_type", "down")->count();
 
 		return view("single", [
 			"votes" => $upvotes - $downvotes,

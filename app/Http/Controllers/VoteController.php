@@ -8,6 +8,7 @@ use App\Classes\DatabaseValidation;
 use Illuminate\Http\Request;
 use App\Models\Question;
 use App\Events\PlusReps;
+use App\Models\Vote;
 
 
 
@@ -53,6 +54,7 @@ class VoteController extends Controller
 			$reward = -$reward;
 			$votes = count($question->votes) - 1;
 		}
+
 		$reputations = (
             new Reputations(
                     $question->user, 
@@ -60,7 +62,8 @@ class VoteController extends Controller
                     new ReputationValidation(
                         $voteType,
                         new DatabaseValidation( 
-                            $question->id
+                            $question->id,
+							$voteType
                         )
                     )
                 )
@@ -89,19 +92,26 @@ class VoteController extends Controller
 			return $e;
 		}
 
-		$question->votes()->insert([
-			"vote_type" => $voteType,
+		$question->votes()->updateOrInsert( [
 			"question_id" => $question->id,
-			"user_id" => auth()->user()->id
+			"user_id" => auth()->user()->id 
+		], [
+			"vote_type" => $voteType
 		]);
+		$question->save();
 
         $reciever_id = $question->user->id;
         event(new PlusReps($reciever_id, $reward));
 
-        $upvotes = $question->votes->where("vote_type", "up")->count() ;
-		$downvotes = $question->votes->where("vote_type", "down")->count() ;
+		$votes = Vote::count();
+		$upvotes = Vote::where("vote_type", "up")->count();
+		$downvotes = Vote::where("vote_type", "down")->count();
+
+        // $upvotes = $question->votes->where("vote_type", "up")->count() ;
+		// $downvotes = $question->votes->where("vote_type", "down")->count() ;
         return response()->json([
-			"votes" => (($voteType === "up") ? $upvotes + 1 : $upvotes) - (($voteType === "down") ? $downvotes + 1 : $downvotes),
+			// "votes" => (($voteType === "up") ? $upvotes + 1 : $upvotes) - (($voteType === "down") ? $downvotes + 1 : $downvotes),
+			"votes" => $upvotes - $downvotes,
 			"status" => true
 		]);
 	}
