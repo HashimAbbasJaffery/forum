@@ -165,23 +165,21 @@ class QuestionController extends Controller
 		];
 	}
 	public function vote(Question $question)
-	{
+	{	
 		$voteType = request()->get("voteType");
 		$reward = 5;
-		$votes = $question->votes + 1;
+		$votes = count($question->votes) + 1;
 		if ($voteType === "down") {
 			$reward = -$reward;
-			$votes = $question->votes - 1;
+			$votes = count($question->votes) - 1;
 		}
-
 		$reputations = (new Reputations($question->user, $reward, new ReputationValidation($voteType)))->reputationPersistence();
 		if ($reputations !== true) {
-			return response()->json([
+			return [
 				"status" => false,
 				"message" => $reputations
-			]);
+			];
 		}
-
 		$varifications = [
 			"isSelfVote" => $question->user->id,
 		];
@@ -198,16 +196,17 @@ class QuestionController extends Controller
 		} catch (\Exception $e) {
 			return $e;
 		}
-
-		$question->update([
-			"votes" => $votes
+		$question->votes()->insert([
+			"vote_type" => $voteType,
+			"question_id" => $question->id,
+			"user_id" => auth()->user()->id
 		]);
-
 		$reciever_id = $question->user->id;
 		event(new PlusReps($reciever_id, $reward));
-
+		$upvotes = $question->votes->where("vote_type", "up")->count() ;
+		$downvotes = $question->votes->where("vote_type", "down")->count() ;
 		return response()->json([
-			"votes" => $question->votes,
+			"votes" => (($voteType === "up") ? $upvotes + 1 : $upvotes) - (($voteType === "down") ? $downvotes + 1 : $downvotes),
 			"status" => true
 		]);
 	}

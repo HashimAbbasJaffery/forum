@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\Tag;
 use App\Models\Category;
 use App\Models\Comment;
+use App\Models\Vote;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 
@@ -20,7 +21,7 @@ class Question extends Model
 		'title' => 'h'
 	];
 	protected $guarded = ["id", "created_at", "updated_at"];
-	protected $with = ["user", "category", "tags", "comments"];
+	protected $with = ["user", "category", "tags", "comments", "votes"];
 	public function category() {
 		return $this->belongsTo(Category::class);
 	}
@@ -69,6 +70,9 @@ class Question extends Model
 		}
 		$questions = $questions->flatten()->unique("id");
 		return $questions->all();
+	}
+	public function votes() {
+		return $this->hasMany(Vote::class);
 	}
     use HasFactory;
 }
