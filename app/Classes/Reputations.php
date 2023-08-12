@@ -8,7 +8,11 @@ class Reputations {
     protected $user;
     protected $reputation;
     protected $validation;
-    public function __construct(User $user, $reputation, ReputationValidation $validation) {
+    public function __construct(
+        User $user, 
+        $reputation, 
+        ReputationValidation $validation,
+    ) {
         $this->user = $user;
         $this->reputation = $reputation;
         $this->validation = $validation;

@@ -7,9 +7,13 @@ class ReputationValidation {
 
     protected $task;
     protected $tasks = [];
-    public function __construct(string $task) {
+    protected $DBvalidation;
+    public function __construct(
+        string $task, 
+        DatabaseValidation $DBvalidation = null
+    ) {
         $this->task = $task;
-
+        $this->DBvalidation = $DBvalidation;
         // These tasks will be fetched from the database. but for now they are static
 
         $this->tasks = [
@@ -18,6 +22,7 @@ class ReputationValidation {
             "modify" => 200,
             "close" => 500
         ];
+
     }
     protected function isLoggedIn() {
         $user = auth()->user();
@@ -60,6 +65,7 @@ class ReputationValidation {
         if(!$this->isTaskExist()) return "This error is from Admin side. Please stay tune!";
         if(!$this->isLoggedIn()["status"]) return $this->isLoggedIn()["message"];
         if(!$this->isEligibleFor()["status"]) return $this->isEligibleFor()["message"];
+        if(!$this->DBvalidation->validate()) return "You have already voted!";
         return true;
     }
 }

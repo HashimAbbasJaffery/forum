@@ -17,7 +17,7 @@
                     </div>
                     <div class="vote-question">
                         <button class="upvote">Upvote</button>
-                        <p class="votes">{{ count($question->votes) ?? 0 }}</p>
+                        <p class="votes">{{ $votes }}</p>
                         <button class="downvote">Downvote</button>
                     </div>
                 </div>
