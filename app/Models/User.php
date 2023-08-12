@@ -56,8 +56,14 @@ class User extends Authenticatable
     public function questions() {
         return $this->hasMany(Question::class);
     }
+    public function questionsVotes() {
+        return $this->hasMany(Question::class, "question_id");
+    }
     public function comments() {
         return $this->hasMany(Comment::class);
+    }
+    public function votes() {
+        
     }
     protected function password(): Attribute {
         return Attribute::make(

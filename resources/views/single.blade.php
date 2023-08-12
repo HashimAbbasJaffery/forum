@@ -1,3 +1,4 @@
+@dd($question)
 <x-layouts>
 		<x-navbar />
             <div class="topics">

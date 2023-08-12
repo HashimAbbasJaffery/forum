@@ -199,6 +199,8 @@ class QuestionController extends Controller
 			return $e;
 		}
 
+		$vote = new Vote()
+
 		$question->update([
 			"votes" => $votes
 		]);

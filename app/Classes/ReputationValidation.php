@@ -13,7 +13,7 @@ class ReputationValidation {
         // These tasks will be fetched from the database. but for now they are static
 
         $this->tasks = [
-            "up" => 30,
+            "up" => 10,
             "down" => 20,
             "modify" => 200,
             "close" => 500
