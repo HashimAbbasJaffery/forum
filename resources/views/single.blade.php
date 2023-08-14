@@ -28,6 +28,7 @@
                         <x-topic :content="$question"/>
                         <h1 class="text-6xl font-bold mt-10 mb-10">Replies</h1>
                         @forelse ($question->comments as $comment)
+                            
                             <x-topic :content="$comment" />
                             @if(count($comment->replies) > 0)
                                 @foreach($comment->replies as $reply)
@@ -139,4 +140,6 @@
         })
         
     </script>
+    
+    
 </x-layouts>

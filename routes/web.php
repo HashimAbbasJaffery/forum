@@ -42,6 +42,7 @@ Route::get("/notifications/{username}/old", [AjaxController::class, "oldNotifica
 Route::get("profile/{username}/edit", [ProfileController::class, "edit"]);
 Route::post("profile/{username}/update", [ProfileController::class, "update"]);
 Route::post("/question/{question:slug}/upvote", [VoteController::class, "vote"]);
+Route::post("/question/{user:id}/solved", [QuestionController::class, "solved"]);
 
 Route::get("/post", function() {
 	return view("single");

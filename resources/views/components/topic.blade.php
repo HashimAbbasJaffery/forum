@@ -1,5 +1,15 @@
 {{-- @dd($content) --}}
 <div {{ $attributes->merge(["class" => "topic"]) }}>
+                            
+                            @if(!isset($content->solved_id))
+                                @php 
+                                    $class = "";
+                                    if($content->user_id == $content->user->id ) {
+                                        $class = "solved";
+                                    }
+                                @endphp
+                                <button class="solve_button {{ $class }}" onclick='isAnswer( "{{ $content->question_id }}", "{{ $content->user->id }}" )'>Mark it as correct answer!</button>
+                            @endif
                             <div class="topic__head">
                                 <div class="topic__avatar">
                                     <x-details :user="$content->user->id" :letter="ucwords($content->user->name[0] ?? 'a')"/>                                    
@@ -33,5 +43,34 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div><script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.4.0/axios.min.js" integrity="sha512-uMtXmF28A2Ab/JJO2t/vYhlaa/3ahUOgj1Zf27M5rOo8/+fcTUVH0/E0ll68njmjrLqOBjXM3V9NiPFL5ywWPQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        const dispatch = (url, dataset, success, failed) => {
+            axios.post(url, dataset)
+            .then(res => {
+                success(res);
+            })
+            .catch(err => {
+                failed(res);
+            })
+        }
+        const successCallback = res => {
+            console.log(res);
+        }
+        const failedCallback = res => {
+
+        }
+        const isAnswer = (id, user_id) => {
+            const data = {
+                id: id,
+                user_id: user_id
+            };
+            dispatch(
+                `/question/${user_id}/solved`,
+                data, 
+                successCallback,
+                failedCallback
+            )
+        }
+    </script>
                         

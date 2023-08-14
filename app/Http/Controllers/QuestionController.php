@@ -147,4 +147,14 @@ class QuestionController extends Controller
 			"message" => "You need " . $minRepsRequired . " reps to " . $task . "vote"
 		];
 	}
+	public function solved(User $user) {
+		$user_id = request()->get("user_id");
+		$question =  Question::find( request()->get("id") );
+		
+		$question->update([
+			"solved_id" => $user_id
+		]);
+
+		return $question;
+	}
 }
