@@ -67,13 +67,21 @@ class QuestionController extends Controller
 	}
 	public function show(Question $question)
 	{
-		$votes = Vote::count();
-		$upvotes = Vote::where("vote_type", "up")->count();
-		$downvotes = Vote::where("vote_type", "down")->count();
 
+		$votes = Vote::where("question_id", $question->id);
+		
+		$upvotes = $votes->where("vote_type", "up")->count();
+		$downvotes = $votes->where("vote_type", "down")->count();
+		$selected = null;
+		if(auth()->user()) {
+			$selected = Vote::where("question_id", $question->id)
+								->where("user_id", auth()->user()->id)
+								->first();
+		}
 		return view("single", [
 			"votes" => $upvotes - $downvotes,
 			"question" => $question,
+			"selectedVote" => $selected->vote_type ?? "",
 			"questions" => Question::byTagId($question)
 		]);
 	}

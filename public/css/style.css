@@ -3594,3 +3594,21 @@ a:hover {
   display: none;
   z-index: 2;
 }
+.vote-buttom {
+  box-sizing: border-box;
+}
+.vote-button {
+ padding: 5px 10px 5px 10px; 
+}
+.selected-button {
+  text-decoration: none;
+  background: grey;
+  color: white; 
+  border-radius: 5px;
+}
+.vote-button:hover {
+  text-decoration: none;
+  background: grey;
+  color: white; 
+  border-radius: 5px;
+}

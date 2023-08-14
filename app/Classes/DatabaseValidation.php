@@ -19,6 +19,13 @@ class DatabaseValidation {
         return ($collectionCount > 0)? false : true;
     }
 
+    public function simple_validate() {
+        $collectionCount = Vote::where("user_id", auth()->user()->id)
+                                ->where("question_id", $this->question_id)
+                                ->count();
+        return ( $collectionCount > 0 )? true : false;
+    }
+
 }
 
 ?>
