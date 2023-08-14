@@ -2,12 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Classes\ChangeReputation;
+use App\Classes\DatabaseVote;
 use App\Classes\Reputations;
 use App\Classes\ReputationValidation;
 use App\Classes\DatabaseValidation;
 use Illuminate\Http\Request;
 use App\Models\Question;
 use App\Events\PlusReps;
+use App\Models\Vote;
+use App\Classes\Vote as UserVote;
 
 
 
@@ -44,27 +48,62 @@ class VoteController extends Controller
 		];
 	}
 
+	protected function removeVote(Question $question, $changeBy, $does_exist) {
+		if(!auth()->user()) return;
+		if(!$does_exist) return;
+		Vote::where("question_id", $question->id)
+				->where("user_id", auth()->user()->id)
+				->delete();
+		$question->update([
+			"votes" => $question->votes + $changeBy
+		]);
+	}
     public function vote(Question $question)
 	{	
+		// If votes already exists then double the reward
+
 		$voteType = request()->get("voteType");
+		$does_exists = (new DatabaseValidation($question->id, $voteType))
+							->simple_validate();
+		
+
+		$changeByValues = [
+			"up" => -1,
+			"down" => 1
+		];
 		$reward = 5;
-		$votes = count($question->votes) + 1;
+		if( $voteType === "removeUp" || $voteType === "removeDown" ) {
+			$task =  strtolower(str_replace("remove", "", $voteType));
+			
+			if( $task === "up" ) $reward = -$reward;
+			
+			$user = $question->user;
+			$user->profile()->update([
+				"reputation" => $user->profile->reputation + $reward 
+			]);
+
+
+			$validation = (new DatabaseValidation($question->id, $task))->simple_validate();
+			$changeBy = $changeByValues[$task];
+			$this->removeVote($question, $changeBy, $validation);
+			return [
+				"votes" => $question->votes,
+				"status" => true,
+				"type" => false
+			];
+		}
+		// $votes = count($question->votes) + 1;
 		if ($voteType === "down") {
 			$reward = -$reward;
-			$votes = count($question->votes) - 1;
+			// $votes = count($question->votes) - 1;
 		}
-		$reputations = (
-            new Reputations(
-                    $question->user, 
-                    $reward, 
-                    new ReputationValidation(
-                        $voteType,
-                        new DatabaseValidation( 
-                            $question->id
-                        )
-                    )
-                )
-            )->reputationPersistence();
+
+			$reputations = (new ChangeReputation())->changeReps(
+				$question->user, 
+				($does_exists) ? $reward * 2 : $reward, 
+				$voteType, 
+				$question->id
+			);
         
         if ($reputations !== true) {
             return [
@@ -88,21 +127,25 @@ class VoteController extends Controller
 		} catch (\Exception $e) {
 			return $e;
 		}
-
-		$question->votes()->insert([
-			"vote_type" => $voteType,
+		$vote = (new UserVote())->vote( $voteType, $question );
+		
+		$question->votes()->updateOrInsert( [
 			"question_id" => $question->id,
-			"user_id" => auth()->user()->id
+			"user_id" => auth()->user()->id 
+		], [
+			"vote_type" => $voteType
 		]);
+
 
         $reciever_id = $question->user->id;
         event(new PlusReps($reciever_id, $reward));
 
-        $upvotes = $question->votes->where("vote_type", "up")->count() ;
-		$downvotes = $question->votes->where("vote_type", "down")->count() ;
-        return response()->json([
-			"votes" => (($voteType === "up") ? $upvotes + 1 : $upvotes) - (($voteType === "down") ? $downvotes + 1 : $downvotes),
-			"status" => true
+		$question = Question::where("id", $question->id)->first();
+		
+		return response()->json([
+			"votes" => $question->votes,
+			"status" => true,
+			"type" => $voteType
 		]);
 	}
 }

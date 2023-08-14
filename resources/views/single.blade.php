@@ -16,9 +16,9 @@
                         </div>
                     </div>
                     <div class="vote-question">
-                        <button class="upvote">Upvote</button>
-                        <p class="votes">{{ $votes }}</p>
-                        <button class="downvote">Downvote</button>
+                        <button class="upvote vote-button {{ ( $selectedVote == "up" )? "selected-button" : "" }}">Upvote</button>
+                        <p class="votes">{{ $question->votes }}</p>
+                        <button class="downvote vote-button {{ ( $selectedVote == "down" )? "selected-button" : "" }}">Downvote</button>
                     </div>
                 </div>
                 <div class="topics__body">
@@ -67,9 +67,28 @@
 
         const upvote = document.querySelector(".upvote");
         const downvote = document.querySelector(".downvote");
-        
+        const toggleClass = (element, className) => {
+            const el = document.querySelector("." + element);
+            el.classList.toggle(className);
+        }
+
         const successCallback = res => {
-            console.log(res);
+            const className = "selected-button";
+            const voteType = res.data.type;
+            const upvote = document.querySelector(".upvote");
+            const downvote = document.querySelector(".downvote");
+
+            if(voteType === "up") {
+                upvote.classList.add(className);
+                downvote.classList.remove(className);
+            } else if(voteType === "down"){
+                upvote.classList.remove(className);
+                downvote.classList.add(className);
+            } else {
+                upvote.classList.remove(className);
+                downvote.classList.remove(className);
+            }
+
             const voteElement = document.querySelector(".votes");
             const votes = res.data.votes;
             const isSuccess = res.data.status;
@@ -89,10 +108,15 @@
             console.log(res);
         }
         upvote.addEventListener("click", () => {
+            const isSelected = upvote.classList.contains("selected-button");
+            let voteType = "up";
+            if( isSelected ) {
+                voteType = "removeUp"
+            }
             dispatch(
                 "/question/{{ $question->slug }}/upvote",
                 {
-                    voteType: "up"
+                    voteType: voteType
                 },
                 successCallback,
                 failedCallback
@@ -100,10 +124,15 @@
         })
         
         downvote.addEventListener("click", () => {
+            const isSelected = downvote.classList.contains("selected-button");
+            let voteType = "down";
+            if( isSelected ) {
+                voteType = "removeDown";
+            }
             dispatch(
                 "/question/{{ $question->slug }}/upvote",
                 {
-                    voteType: "down"
+                    voteType: voteType
                 },
                 successCallback
             )
