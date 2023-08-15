@@ -156,9 +156,22 @@ class QuestionController extends Controller
 		$question = Question::find(request()->get("id"));
 
 		if($question->solved_id == $comment_id) {
+			$question->update([
+				"solved_id" => 0
+			]);
+
+			
+			$validation = (
+				new Reputations(
+					$user,
+					-100,
+					new ReputationValidation("answer")
+				)
+			)->reputationPersistence();
+
 			return [
-				"status" => false,
-				"message" => "same"
+				"status" => true,
+				
 			];
 		}
 

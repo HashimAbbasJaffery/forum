@@ -69,12 +69,17 @@
 
             const old_answer = res.data.old_answer;
             const new_answer = res.data.new_answer;
+            const answer_comment = document.getElementById("comment-" + new_answer);
             if(old_answer) {
                 const comment = document.getElementById( "comment-" + old_answer );
                 comment.classList.remove("solved");
 
-                const answer_comment = document.getElementById("comment-" + new_answer);
                 answer_comment.classList.add("solved");
+            } else if(old_answer == 0){
+                answer_comment.classList.add("solved");
+            } else{
+                const button = document.querySelector(".solve_button.solved");
+                button.classList.remove("solved");
             }
         }
         const failedSolvedCallback = res => {

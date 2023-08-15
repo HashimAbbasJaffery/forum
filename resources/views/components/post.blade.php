@@ -1,4 +1,10 @@
-<div class="posts__item bg-f2f4f6">
+<div class="posts__item bg-f2f4f6"
+    @style([
+        "border: 1px solid #d3d3d3",
+        "border: 1px solid green" => $question->solved_id !== 0,
+        "margin-bottom: 20px",
+        "border-radius: 5px;"
+    ])>
                         <div class="posts__section-left">
                             <div class="posts__topic">
                                 <div class="posts__content">
@@ -28,5 +34,10 @@
                                 @endforelse
                             </div>
                             <div class="posts__replies">{{ count($question->comments) }}</div>
+                            <div class="post_solve">
+                                @if($question->solved_id !== 0)
+                                    <p class="solved" style="padding: 5px 10px 5px 10px; border-radius: 5px;">Solved</p>
+                                @endif
+                            </div>
                         </div>
                     </div>

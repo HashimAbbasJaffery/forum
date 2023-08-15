@@ -5,6 +5,7 @@
                     <div class="posts__category">Category</div>
                     <div class="posts__users">Users</div>
                     <div class="posts__replies">Replies</div>
+                    <div class="posts__solved"></div>
                 </div>
                     <div class="posts__body" id="topics">
                     @forelse ($questions as $question)
