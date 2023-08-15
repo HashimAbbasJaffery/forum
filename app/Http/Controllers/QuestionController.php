@@ -15,6 +15,7 @@ use Illuminate\Foundation\Events\Dispatchable;
 use App\Events\NewComment;
 use App\Models\User;
 use App\Models\Vote;
+use App\Events\PlusReps;
 
 class QuestionController extends Controller
 {
@@ -62,21 +63,21 @@ class QuestionController extends Controller
 		$slug = $attributes['slug'];
 		$user = User::firstWhere("id", auth()->user()->id);
 		$badge->updateBadges();
-		// event(new BadgeAward($user, auth()->user()->id));
+
 		return redirect()->to("/question/$slug");
 	}
 	public function show(Question $question)
 	{
 
 		$votes = Vote::where("question_id", $question->id);
-		
+
 		$upvotes = $votes->where("vote_type", "up")->count();
 		$downvotes = $votes->where("vote_type", "down")->count();
 		$selected = null;
-		if(auth()->user()) {
+		if (auth()->user()) {
 			$selected = Vote::where("question_id", $question->id)
-								->where("user_id", auth()->user()->id)
-								->first();
+				->where("user_id", auth()->user()->id)
+				->first();
 		}
 		return view("single", [
 			"votes" => $upvotes - $downvotes,
@@ -147,14 +148,47 @@ class QuestionController extends Controller
 			"message" => "You need " . $minRepsRequired . " reps to " . $task . "vote"
 		];
 	}
-	public function solved(User $user) {
+	public function solved()
+	{
 		$user_id = request()->get("user_id");
-		$question =  Question::find( request()->get("id") );
+		$user = User::find($user_id);
+		$comment_id = request()->get("comment_id");
+		$question = Question::find(request()->get("id"));
+
+		if($question->solved_id == $comment_id) {
+			return [
+				"status" => false,
+				"message" => "same"
+			];
+		}
+
+		$old_solved_answer = $question->solved_id;
+
+		$validation = (
+			new Reputations(
+				$user,
+				100,
+				new ReputationValidation("answer")
+			)
+		)->reputationPersistence();
+
+		if ($validation !== true) {
+			return [
+				"status" => false,
+				"message" => $validation
+			];
+		}
 		
+		event(new PlusReps($user_id, 100)); // To trigger event when user gets rep
+
 		$question->update([
-			"solved_id" => $user_id
+			"solved_id" => $comment_id
 		]);
 
-		return $question;
+		return [
+			"old_answer" => $old_solved_answer,
+			"new_answer" => $question->solved_id,
+			"status" => true
+		];
 	}
 }
